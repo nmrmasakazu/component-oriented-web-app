@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noUnusedParameters": false,
+        "strict": true,
+        "esModuleInterop": true,
+        "jsx": "react"
+    },
+    "include": [
+        "src/client/types/**.*",
+        "src/client/store/**/*",
+        "src/client/pages/**/*",
+        "src/client/layouts/**/*",
+        "src/client/components/**/*",
+        "src/server/**/*"
+    ]
+}
