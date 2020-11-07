@@ -1,9 +1,9 @@
 import Express from 'express'
+import fetch from 'cross-fetch'
 
 const apiRouter = Express.Router()
 
-// localhostのみOK
-// https://mironal-memo.blogspot.com/2012/12/nodeexpresshost.html
+// localhostのみアクセスの許可
 apiRouter.use(function(req, res, next){
     var hostname = req.headers.host;
     if( hostname == null || hostname == undefined ){
@@ -21,6 +21,14 @@ apiRouter.get('/getName', (req, res) => {
 	res.json({
         name: "masakazu"
     })
+})
+
+apiRouter.get('/auth', async (req, res) => {
+
+  const response = await fetch('http://nginx-api:81/users/signin?username=admin&password=admin', {method: 'POST'})
+  // tokenをUIに表示させるのはNG（今回はお試し）
+  const token = await response.text()
+  res.json({token: token})
 })
 
 export default apiRouter

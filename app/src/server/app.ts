@@ -1,4 +1,3 @@
-// Express徹底入門 https://gist.github.com/mitsuruog/fc48397a8e80f051a145
 import Express from 'express'
 import next from 'next'
 import apiRouter from './routes/api/index'
@@ -14,13 +13,14 @@ async function main() {
     await nextApp.prepare()
 
     app.use('/api', apiRouter)
-    // Next.jsをミドルウェアにする
+
+    // Next.jsをミドルウェアとして使う
     app.use((req, res) => {
         handle(req, res)
     })
 
     app.listen(port, () => {
-        console.log(`Running on http://localhost:${port}`)
+        console.log(`Running on http://localhost`)
     })
 }
 
