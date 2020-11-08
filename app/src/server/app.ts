@@ -1,6 +1,7 @@
 import Express from 'express'
 import next from 'next'
 import apiRouter from './routes/api/index'
+import authRouter from './routes/api/auth'
 
 const dev = process.env.NODE_ENV !== 'production'
 
@@ -12,6 +13,7 @@ async function main() {
     const handle = nextApp.getRequestHandler()
     await nextApp.prepare()
 
+    app.use('/api', authRouter)
     app.use('/api', apiRouter)
 
     // Next.jsをミドルウェアとして使う

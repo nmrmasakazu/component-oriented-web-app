@@ -6,4 +6,6 @@ COPY ./ ./
 
 RUN yarn install
 
-CMD ["sh", "-c", "yarn build ; yarn start"]
+RUN yarn build
+
+CMD ["sh", "-c", "yarn start"]

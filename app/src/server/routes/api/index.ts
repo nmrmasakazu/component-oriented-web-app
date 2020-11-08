@@ -23,12 +23,4 @@ apiRouter.get('/getName', (req, res) => {
     })
 })
 
-apiRouter.get('/auth', async (req, res) => {
-
-  const response = await fetch('http://nginx-api:81/users/signin?username=admin&password=admin', {method: 'POST'})
-  // tokenをUIに表示させるのはNG（今回はお試し）
-  const token = await response.text()
-  res.json({token: token})
-})
-
 export default apiRouter

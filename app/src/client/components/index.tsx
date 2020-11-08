@@ -7,7 +7,7 @@ type Props = {
 }
 
 const Component: Next.NextFC<Props> = props => (
-    <div>Welcome to nmrmasakazu!</div>
+    <div>Welcome</div>
 )
 
 const StyledComponent = styled(Component)`

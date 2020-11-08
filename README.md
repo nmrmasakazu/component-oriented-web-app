@@ -36,9 +36,10 @@ Thanks
   - https://github.com/callicoder/spring-security-react-ant-design-polls-app
 - Next
   - https://github.com/takefumi-yoshii/ts-nextjs-express
+- Next JWT
+  - https://github.com/jasonraimondi/nextjs-jwt-example
 - Express
   - https://gist.github.com/mitsuruog/fc48397a8e80f051a145
-
 - Spring Boot App
   - https://www.callicoder.com/spring-boot-spring-security-jwt-mysql-react-app-part-1/
 - JWT
