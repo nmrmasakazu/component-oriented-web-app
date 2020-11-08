@@ -1,5 +1,7 @@
 # component-oriented-web-app
 
+## Architecture
+
 ![](./architecture.png)
 
 - FE
@@ -16,6 +18,8 @@
 - Reverse proxy
   - Nginx
 
+## Setup
+
 ```bash
 # 起動
 docker-compose up --build
@@ -26,7 +30,14 @@ docker-compose down --volumes
 docker exec -it <CONTAINER_NAME> bash
 ```
 
+## Access
 
+- アクセス制限なし
+  - http://localhost/
+- ログイン
+  - http://localhost/login
+- アクセス制限あり
+  - http://localhost/secret
 
 ## References
 
