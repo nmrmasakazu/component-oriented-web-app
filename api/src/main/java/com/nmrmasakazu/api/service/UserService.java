@@ -1,5 +1,6 @@
 package com.nmrmasakazu.api.service;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,10 @@ public class UserService {
 
     public String refresh(String username) {
         return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+    }
+
+    public List<User> findAllUser() {
+        return userRepository.findByUser();
     }
 
 }

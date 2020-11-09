@@ -4,8 +4,8 @@ services:
         build:
             context: ./mysql/
         restart: always
-        expose:
-            - "3306"
+        ports: 
+            - "3306:3306"
         command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
         volumes:
             - ./mysql/initdb.d:/docker-entrypoint-initdb.d
@@ -20,55 +20,55 @@ services:
         networks:
             - app-net
 
-    api:
-        build:
-            context: ./api/
-        expose: 
-            - "8080"
-        volumes: 
-            - ./api:/api
-        depends_on:
-            - mysql
-        container_name: component-api
-        tty: true
-        networks:
-            - app-net
+    # api:
+    #     build:
+    #         context: ./api/
+    #     expose: 
+    #         - "8080"
+    #     volumes: 
+    #         - ./api:/api
+    #     depends_on:
+    #         - mysql
+    #     container_name: component-api
+    #     tty: true
+    #     networks:
+    #         - app-net
 
-    nginx-api:
-        build:
-            context: ./nginx-api/
-        restart: always
-        expose: 
-            - "81"
-        depends_on:
-            - api
-        container_name: component-nginx-api
-        networks:
-            - app-net
+    # nginx-api:
+    #     build:
+    #         context: ./nginx-api/
+    #     restart: always
+    #     expose: 
+    #         - "81"
+    #     depends_on:
+    #         - api
+    #     container_name: component-nginx-api
+    #     networks:
+    #         - app-net
 
-    app:
-        build:
-            context: ./app/
-        expose: 
-            - "3000"
-        depends_on:
-            - nginx-api
-        container_name: component-app
-        tty: true
-        networks:
-            - app-net
+    # app:
+    #     build:
+    #         context: ./app/
+    #     expose: 
+    #         - "3000"
+    #     depends_on:
+    #         - nginx-api
+    #     container_name: component-app
+    #     tty: true
+    #     networks:
+    #         - app-net
 
-    nginx-app:
-        build:
-            context: ./nginx-app/
-        restart: always
-        ports: 
-            - "80:80"
-        depends_on:
-            - app
-        container_name: component-nginx-app
-        networks:
-            - app-net
+    # nginx-app:
+    #     build:
+    #         context: ./nginx-app/
+    #     restart: always
+    #     ports: 
+    #         - "80:80"
+    #     depends_on:
+    #         - app
+    #     container_name: component-nginx-app
+    #     networks:
+    #         - app-net
 
 networks:
     app-net:
