@@ -1,5 +1,8 @@
 package com.nmrmasakazu.api.model;
 
+import com.nmrmasakazu.api.domain.Promise;
+import com.nmrmasakazu.api.domain.item.UserItemCh;
+import com.nmrmasakazu.api.domain.item.UserItemTr;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
 /**
@@ -33,6 +37,15 @@ public class User {
 
     @ElementCollection(fetch = FetchType.EAGER)
     List<Role> roles;
+
+    @OneToMany(mappedBy = "user")
+    private List<Promise> primiseList;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserItemCh> userItemChList;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserItemTr> userItemTrList;
 
     public Integer getId() {
         return id;
@@ -72,6 +85,28 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    private List<Promise> getPromiseList() {
+        return primiseList;
+    }
+    // 循環参照の回避 https://qiita.com/frost_star/items/855e7fb52dca9de7566e
+    public List<Promise> acquirePromiseList() {
+        return getPromiseList();
+    }
+
+    private List<UserItemCh> getUserItemChList() {
+        return userItemChList;
+    }
+    public List<UserItemCh> acquireUserItemChList() {
+        return getUserItemChList();
+    }
+
+    private List<UserItemTr> getUserItemTrList() {
+        return userItemTrList;
+    }
+    public List<UserItemTr> acquireUserItemTrList() {
+        return getUserItemTrList();
     }
 
 }

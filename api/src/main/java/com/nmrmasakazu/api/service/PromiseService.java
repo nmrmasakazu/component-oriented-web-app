@@ -3,6 +3,7 @@ package com.nmrmasakazu.api.service;
 import com.nmrmasakazu.api.domain.Promise;
 import com.nmrmasakazu.api.model.Role;
 import java.util.List;
+import java.util.Optional;
 
 public interface PromiseService {
 
@@ -11,6 +12,8 @@ public interface PromiseService {
     Promise findById(int id);
 
     List<Promise> findByUserId(int userId);
+
+    Optional<Integer> findLatestIdByUserId(int id);
 
     Role authUserByPromiseId(int promiseId);
 

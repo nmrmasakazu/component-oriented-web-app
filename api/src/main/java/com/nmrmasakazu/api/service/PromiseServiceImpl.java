@@ -7,6 +7,7 @@ import com.nmrmasakazu.api.repository.UserRepository;
 import com.nmrmasakazu.api.model.Role;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,11 @@ public class PromiseServiceImpl implements PromiseService {
     @Override
     public List<Promise> findByUserId(int userId) {
         return promiseRepository.findPromiseByUserId(userId);
+    }
+
+
+    public Optional<Integer> findLatestIdByUserId(int id) {
+        return promiseRepository.findLatestId(id);
     }
 
     @Override

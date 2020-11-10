@@ -37,6 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**/**").permitAll()
                 .antMatchers("/item/**").hasRole("ADMIN")
                 .antMatchers("/useritem/**").hasRole("ADMIN")
+                .antMatchers("/app/**").hasAnyRole("ADMIN", "CLIENT")
                 .anyRequest().authenticated();
 
         http.exceptionHandling().accessDeniedPage("/login");
