@@ -1,83 +1,57 @@
 import React, { useState } from 'react'
-import { login } from '../../services/login'
-import { Links } from '../../components/links'
-import { LoginInputs } from '../../../types/LoginInputs'
+import Nav from '../../components/nav'
 
-const LoginPage = () => {
+const UserTablePage = () => {
 
-  const initialValues: LoginInputs = {
-    username: '',
-    password: '',
-  }
-  const [inputs, setInputs] = useState(initialValues)
-  const [error, setError] = useState('')
+    return <>
+        <div id="wrapper">
+            <Nav />
+            <div className="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+                    <div className="container-fluid">
+                        <h3 className="text-dark mb-4">登録済みのユーザー</h3>
+                        <div className="card shadow">
+                            <div className="card-header py-3">
+                                <p className="text-primary m-0 font-weight-bold">登録済みのユーザーを表示中</p>
+                            </div>
+                            <div className="card-body">
+                                <div className="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                    <table className="table dataTable my-0" id="dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>ユーザーネーム</th>
+                                                <th>自主トレ項目</th>
+                                                <th>挑戦項目</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault()
-    const res = await login(inputs)
-    if (res) setError(res)
-  }
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr></tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div>
+    </div>
 
-  const handleInputChange = (e: React.ChangeEvent<any>) => {
-    e.persist()
-    setInputs({
-      ...inputs,
-      [e.target.name]: e.target.value,
-    })
-  }
-
-  return <>
-    {/* <Links /> */}
-    <div className="contact-clean">
-      <form id="form-round" onSubmit={handleSubmit}>
-        <img className="float-right d-md-flex align-items-md-start img-right" src="/static/img/Nitech-logo.png" />
-        <div className="kaikokai">
-          <img className="float-right d-md-flex img-right" src="/static/img/Kaikokai-logo.png" />
-        </div>
-        <h2 className="text-center">テレリハビリ治療支援システム</h2>
-        <h5 className="text-right"></h5>
-        {error ? <p>Error: {error}</p> : null}
-        <div className="form-group">
-            <input className="form-control" type="text" name="username" placeholder="ユーザーネーム" onChange={handleInputChange} />
-        </div>
-        <div className="form-group">
-          <input className="form-control" type="password" placeholder="パスワード" name="password" onChange={handleInputChange} />
-        </div>
-        <div className="form-group" id="center">
-            <button className="btn">ログイン</button>
-        </div>
-      </form>
-
-      <style jsx>{`
-        div.contact-clean {
-        background-color: rgb(0, 157, 158);
-        opacity: 1;
-        }
-        h2 {
-          margin: 0px;
-        }
-        h5 {
-          margin: 0 0 20px;
-        }
-        button {
-          background-color: rgb(0, 157, 158) !important;
-          color: rgb(255, 255, 255);
-          margin: 0;
-          width: 150px;
-        }
-        img {
-          height: 50px;
-          padding: 5px 0 0 0;
-          width: "auto";
-          height: "50px"; 
-        }
-        .kaikokai {
-          height: 100px;
-          padding: 0 0 20px 0;
-          margin: 0 0 10px 0;
-        }
+    <style jsx>{`
+      h3 {
+        margin: 20px;
+      }
       `}</style>
     </div>
-  </>
+    <style>{`body {background-color: #f8f9fc}`}</style>
+    </>
 }
-export default LoginPage
+
+export default UserTablePage

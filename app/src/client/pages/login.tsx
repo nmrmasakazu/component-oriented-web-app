@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { login } from '../services/login'
-import { Links } from '../components/links'
 import { LoginInputs } from '../../types/LoginInputs'
 
 const LoginPage = () => {
@@ -78,6 +77,7 @@ const LoginPage = () => {
         }
       `}</style>
     </div>
+    <style>{`body {background-color: rgb(0, 157, 158)}`}</style>
   </>
 }
 export default LoginPage
