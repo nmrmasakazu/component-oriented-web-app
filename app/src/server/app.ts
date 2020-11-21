@@ -2,6 +2,8 @@ import Express from 'express'
 import next from 'next'
 import apiRouter from './routes/api/index'
 import authRouter from './routes/api/auth'
+import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
 
 const dev = process.env.NODE_ENV !== 'production'
 
@@ -12,6 +14,9 @@ async function main() {
     const nextApp = next({ dev, dir: './src/client' })
     const handle = nextApp.getRequestHandler()
     await nextApp.prepare()
+
+    app.use(cookieParser())
+    app.use(bodyParser())
 
     app.use('/api', authRouter)
     app.use('/api', apiRouter)

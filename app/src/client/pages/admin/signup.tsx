@@ -1,8 +1,46 @@
 import React, { useState } from 'react'
 import Nav from '../../components/nav'
 import { privateAdminRoute } from '../../components/privateRoute'
+import { Signup } from '../../../types/Signup'
+import { signup } from '../../services/auth/signup'
 
 const SignupPage = () => {
+
+    const initialValues: Signup = {
+        username: '',
+        password: '',
+        email: '',
+        roles: ['ROLE_CLIENT']
+      }
+      const [inputs, setInputs] = useState(initialValues)
+      const [error, setError] = useState('')
+    
+      const handleSubmit = async (e: any) => {
+        e.preventDefault()
+        const res = await signup(inputs)
+        if (res == 'OK') {
+            alert(`登録されました ${inputs.username} ${inputs.password}`)
+            setInputs({
+                username: '',
+                password: '',
+                email: '',
+                roles: ['ROLE_CLIENT']
+            })
+            return
+        }
+        if (res) {
+          setError(res)
+        }
+      }
+    
+      const handleInputChange = (e: React.ChangeEvent<any>) => {
+        e.persist()
+        setInputs({
+          ...inputs,
+          [e.target.name]: e.target.value,
+          email: e.target.value // TODO EMAILは削除
+        })
+      }
 
     return <>
         <div id="wrapper">
@@ -11,15 +49,15 @@ const SignupPage = () => {
             <div id="content">
                 <h3 className="text-dark mb-4">ユーザーの新規作成</h3>
                 <h6 className="text-dark mb-4">ユーザネームは20文字まで</h6>
-                <form id="form-round" method="post">
+                <form id="form-round" onSubmit={handleSubmit}>
                     <h5 className="text-right"></h5>
                     <div className="form-group">
-                        <input className="form-control" type="text" name="username" placeholder="ユーザーネーム" maxLength={20} />
+                        <input className="form-control" type="text" name="username" placeholder="ユーザーネーム" maxLength={20} onChange={handleInputChange}/>
                     </div>
                     <div className="form-group">
-                        <input className="form-control" type="password" placeholder="パスワード" name="password" />
-                        <div> ERROR </div>
+                        <input className="form-control" type="password" placeholder="パスワード" name="password" onChange={handleInputChange}/>
                     </div>
+                    {error ? <p className="err">Error: {error}</p> : null}
                     <div className="form-group" id="center-1">
                         <button className="btn">新規作成</button></div>
                 </form>
@@ -40,6 +78,9 @@ const SignupPage = () => {
     }
     h6 {
         margin: 20px;        
+    }
+    p.err {
+        color: red;
     }
     form {
         width: 500px;

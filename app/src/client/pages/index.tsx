@@ -1,6 +1,5 @@
 import React from 'react'
 import Head from 'next/head'
-import Component from '../components/index'
 import { NextContext } from 'next'
 import fetch from 'cross-fetch'
 
@@ -25,7 +24,6 @@ class App extends React.Component<Props> {
                 <Head>
                     <title>{this.props.name}</title>
                 </Head>
-                <Component/>
                 <div>
                     {this.props.name}
                 </div>

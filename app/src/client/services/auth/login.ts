@@ -6,7 +6,7 @@ import { post } from '../rest'
 import { AuthToken } from "../../services/auth/authToken"
 
 export const COOKIES = {
-    authToken: 'app.authToken'
+    authToken: 'authToken'
 }
 
 export async function login(inputs: LoginInputs): Promise<string | void> {
