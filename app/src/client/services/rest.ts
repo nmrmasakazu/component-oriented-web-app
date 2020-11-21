@@ -3,7 +3,7 @@ import { catchAxiosError } from './error'
 
 
 const baseConfig: AxiosRequestConfig = {
-    baseURL: 'http://localhost',
+    baseURL: 'http://localhost:3000',
 }
 
 export const post = (url: string, data: URLSearchParams) => {
