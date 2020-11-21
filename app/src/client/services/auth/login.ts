@@ -1,8 +1,9 @@
 import Cookie from 'js-cookie'
 import Router from 'next/router'
-import { LoginInputs } from '../../types/LoginInputs'
-import { catchAxiosError } from './error'
-import { post } from './rest'
+import { LoginInputs } from '../../../types/LoginInputs'
+import { catchAxiosError } from '../error'
+import { post } from '../rest'
+import { AuthToken } from "../../services/auth/authToken"
 
 export const COOKIES = {
     authToken: 'app.authToken'
@@ -15,11 +16,17 @@ export async function login(inputs: LoginInputs): Promise<string | void> {
     if (res.error) {
         return res.error
     } else if (!res.data || !res.data.token) {
-        return 'Something went wrong!'
+        return 'ERROR'
     }
 
     const { token } = res.data
     Cookie.set(COOKIES.authToken, token)
-    await Router.push('/secret')
 
+    const auth = new AuthToken(token)
+    console.log(auth.decodedToken.sub)
+    if (auth.decodedToken.sub == 'admin') {
+        await Router.push('/admin')
+    } else {
+        await Router.push('/user')
+    }
 }

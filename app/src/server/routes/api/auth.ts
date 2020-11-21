@@ -8,7 +8,7 @@ authRouter.post('/login', async (req, res) => {
     const response = await fetch(`http://localhost:81/users/signin?username=${req.query.username}&password=${req.query.password}`, { method: 'POST' })
     
     if (response.status !== 200) {
-        return res.status(404).send({message: 'NOT FOUND'})
+        return res.status(404).send({message: 'ユーザーネームもしくはパスワードが違います'})
     }
     const token = await response.text()
 

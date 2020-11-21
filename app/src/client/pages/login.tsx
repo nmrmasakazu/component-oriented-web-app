@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { login } from '../services/login'
+import { login } from '../services/auth/login'
 import { LoginInputs } from '../../types/LoginInputs'
 
 const LoginPage = () => {
@@ -14,7 +14,9 @@ const LoginPage = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     const res = await login(inputs)
-    if (res) setError(res)
+    if (res) {
+      setError(res)
+    }
   }
 
   const handleInputChange = (e: React.ChangeEvent<any>) => {
@@ -26,7 +28,6 @@ const LoginPage = () => {
   }
 
   return <>
-    {/* <Links /> */}
     <div className="contact-clean">
       <form id="form-round" onSubmit={handleSubmit}>
         <img className="float-right d-md-flex align-items-md-start img-right" src="/static/img/Nitech-logo.png" />
@@ -35,7 +36,7 @@ const LoginPage = () => {
         </div>
         <h2 className="text-center">テレリハビリ治療支援システム</h2>
         <h5 className="text-right"></h5>
-        {error ? <p>Error: {error}</p> : null}
+        {error ? <p className="err">Error: {error}</p> : null}
         <div className="form-group">
             <input className="form-control" type="text" name="username" placeholder="ユーザーネーム" onChange={handleInputChange} />
         </div>
@@ -57,6 +58,9 @@ const LoginPage = () => {
         }
         h5 {
           margin: 0 0 20px;
+        }
+        p.err {
+          color: red;
         }
         button {
           background-color: rgb(0, 157, 158) !important;
@@ -80,4 +84,5 @@ const LoginPage = () => {
     <style>{`body {background-color: rgb(0, 157, 158)}`}</style>
   </>
 }
+
 export default LoginPage

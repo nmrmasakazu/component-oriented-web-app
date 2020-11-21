@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Cookie from 'js-cookie'
 import Router from 'next/router'
-import { COOKIES } from '../services/login'
+import { COOKIES } from '../services/auth/login'
 
 const Nav = () => {
     const logout = async () => {
@@ -29,7 +29,7 @@ const Nav = () => {
                     <button className="btn" type="button">自主トレ項目</button>
                     <button className="btn" type="button">挑戦項目</button>
                 </div>
-                <button className="btn" type="button" onClick={logout}>Logout</button>
+                <button className="btn" type="button" onClick={logout}>ログアウト</button>
             </div>
 
             <style>{`
