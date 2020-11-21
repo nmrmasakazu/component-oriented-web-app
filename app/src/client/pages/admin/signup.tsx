@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Nav from '../../components/nav'
+import { privateAdminRoute } from '../../components/privateRoute'
 
 const SignupPage = () => {
 
@@ -56,27 +57,4 @@ const SignupPage = () => {
     </>
 }
 
-export default SignupPage
-
-
-
-// import React, { useState } from 'react'
-// import Nav from '../../components/nav'
-
-// const SignupPage = () => {
-
-//     return <>
-//         <div id="wrapper">
-//             <Nav />
-            
-//         <div>
-//     </div>
-
-//     <style jsx>{`
-//       `}</style>
-//     </div>
-//     <style>{`body {background-color: #f8f9fc}`}</style>
-//     </>
-// }
-
-// export default SignupPage
+export default privateAdminRoute(SignupPage)

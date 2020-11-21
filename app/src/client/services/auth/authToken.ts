@@ -3,6 +3,9 @@ import jwtDecode from 'jwt-decode'
 export type DecodedToken = {
   readonly sub: string
   readonly exp: number
+  readonly auth: {
+    authority: string
+  }[]
 }
 
 export class AuthToken {
@@ -10,7 +13,7 @@ export class AuthToken {
   readonly decodedToken: DecodedToken
 
   constructor(readonly token?: string) {
-    this.decodedToken = { sub: '', exp: 0 }
+    this.decodedToken = { sub: '', exp: 0, auth: [] }
     try {
       if (token) this.decodedToken = jwtDecode(token)
     } catch (e) {}

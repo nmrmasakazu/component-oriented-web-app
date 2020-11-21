@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Nav from '../../components/nav'
+import { privateRoute } from '../../components/privateRoute'
 
 const UserPage = () => {
 

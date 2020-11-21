@@ -23,8 +23,8 @@ export async function login(inputs: LoginInputs): Promise<string | void> {
     Cookie.set(COOKIES.authToken, token)
 
     const auth = new AuthToken(token)
-    console.log(auth.decodedToken.sub)
-    if (auth.decodedToken.sub == 'admin') {
+
+    if (auth.decodedToken.auth.map(obj => obj.authority == "ROLE_ADMIN").indexOf(true) >= 0) {
         await Router.push('/admin')
     } else {
         await Router.push('/user')

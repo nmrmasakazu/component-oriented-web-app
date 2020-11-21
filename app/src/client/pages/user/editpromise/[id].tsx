@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Nav from '../../../components/nav'
+import { privateRoute } from '../../../components/privateRoute'
 
 const EditPromisePage = () => {
 
@@ -241,4 +242,4 @@ const EditPromisePage = () => {
     </>
 }
 
-export default EditPromisePage
+export default privateRoute(EditPromisePage)
