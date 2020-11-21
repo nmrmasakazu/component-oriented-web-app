@@ -7,23 +7,24 @@ import withRedux from 'next-redux-wrapper'
 import { initStore } from '../store'
 
 export default class MyApp extends App {
-    static async getInitialProps({ Component, router, ctx }: {Component: any, router: any, ctx: any}) {
-      let pageProps = {}
-  
-      if (Component.getInitialProps) {
-        pageProps = await Component.getInitialProps(ctx)
-      }
-  
-      return { pageProps }
+    static async getInitialProps({ Component, router, ctx }: { Component: any, router: any, ctx: any }) {
+        let pageProps = {}
+
+        if (Component.getInitialProps) {
+            pageProps = await Component.getInitialProps(ctx)
+        }
+
+        return { pageProps }
     }
-  
-    render () {
-      const { Component, pageProps } = this.props
-  
-      return (
-        <Container>
-          <Component {...pageProps} />
-        </Container>
-      )
+
+    render() {
+        const { Component, pageProps } = this.props
+
+        return (
+            <Container>
+                <Component {...pageProps} />
+            </Container>
+        )
     }
-  }
+}
+
