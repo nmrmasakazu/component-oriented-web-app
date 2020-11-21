@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Nav from '../../../components/nav'
-import { privateRoute } from '../../../components/privateRoute'
+import { privateAdminRoute } from '../../../components/privateRoute'
 
 const UserItemCh = () => {
 
@@ -101,4 +101,4 @@ const UserItemCh = () => {
     </>
 }
 
-export default UserItemCh
+export default privateAdminRoute(UserItemCh)

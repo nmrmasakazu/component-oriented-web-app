@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Nav from '../../../components/nav'
-import { privateRoute } from '../../../components/privateRoute'
+import { privateAdminRoute } from '../../../components/privateRoute'
 
 const PromiseTablePage = () => {
 
@@ -87,4 +87,4 @@ const PromiseTablePage = () => {
     </>
 }
 
-export default PromiseTablePage
+export default privateAdminRoute(PromiseTablePage)

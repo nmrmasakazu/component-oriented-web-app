@@ -101,4 +101,4 @@ const UserItemTr = () => {
     </>
 }
 
-export default UserItemTr
+export default privateAdminRoute(UserItemTr)
