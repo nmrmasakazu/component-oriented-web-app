@@ -1,8 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Nav from '../../components/nav'
 import { privateAdminRoute } from '../../components/privateRoute'
+import { itemch } from '../../services/item/index'
+import Id from './editpromise/[id]'
 
 const ItemCh = () => {
+
+    // const item = await itemch()
+
+    const [item, setItem] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+
+            const items = [
+                {id: 2, item: "hoge"},
+                {id: 1, item: "foo"}
+            ]
+
+            // const items: any = await itemch()
+            const sorted = items.sort((i1, i2)=>i1.id - i2.id)
+            console.log(item)
+            setItem(sorted)
+        }
+        fetchData()
+    }, [])
 
     return <>
         <div id="wrapper">
@@ -51,11 +73,11 @@ const ItemCh = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
+                                            {item.map((i, index) => 
+                                            <tr key={i.id}>
+                                                <td>{i.id} - {i.item}</td>
                                                 <td>削除</td>
-                                            </tr>
-                                            <tr></tr>
+                                            </tr>)}
                                         </tbody>
                                         <tfoot>
                                             <tr></tr>
@@ -87,6 +109,10 @@ const ItemCh = () => {
         </div >
         <style>{`body {background-color: #f8f9fc}`}</style>
     </>
+}
+
+ItemCh.getInitialProps = async ctx => {
+    // const item = await itemch()
 }
 
 export default privateAdminRoute(ItemCh)

@@ -24,7 +24,7 @@ authRouter.post('/signup', async (req, res) => {
         method: 'POST',
         body:    JSON.stringify(req.body),
         headers: {
-            'Authorization': `bearer ${req.cookies.authToken}`,
+            'Authorization': `Bearer ${req.cookies.authToken}`,
             'Content-Type': 'application/json'
         }
     }

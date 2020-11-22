@@ -17,17 +17,17 @@ const Nav = () => {
                 <h5>
                     <a className="text-white" href="/admin/">テレリハ治療支援システム</a>
                 </h5>
-                <button className="btn" type="button">トップページ</button>
-                <br />
-                <button className="btn" type="button">戻る</button>
+                <button className="btn" type="button"><a href="/admin/">トップページ</a></button>
+                {/* <br /> */}
+                {/* <button className="btn" type="button">戻る</button> */}
                 <div className="new-user">
                     <h6>-ユーザ新規作成</h6>
-                    <button className="btn" type="button">新規作成</button>
+                    <button className="btn" type="button"><a href="/admin/signup">新規作成</a></button>
                 </div>
                 <div className="common">
                     <h6>-共通項目の編集</h6>
-                    <button className="btn" type="button">自主トレ項目</button>
-                    <button className="btn" type="button">挑戦項目</button>
+                    <button className="btn" type="button"><a href="/admin/itemtr">自主トレ項目</a></button>
+                    <button className="btn" type="button"><a href="/admin/itemch">挑戦項目</a></button>
                 </div>
                 <button className="btn" type="button" onClick={logout}>ログアウト</button>
             </div>
@@ -48,6 +48,9 @@ const Nav = () => {
             background-color: rgb(255,255,255) !important;
             color: rgb(0, 157, 158) !important;
             margin: 0 0 10px 0;
+        }
+        a {
+            color: rgb(0, 157, 158) !important;
         }
         div.new-user {
             height: 70px;
