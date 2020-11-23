@@ -22,31 +22,31 @@ services:
         networks:
             - app-net
 
-    api:
-        build:
-            context: ./api/
-        expose: 
-            - "8080"
-        volumes: 
-            - ./api:/api
-        depends_on:
-            - mysql
-        container_name: component-api
-        tty: true
-        networks:
-            - app-net
+    # api:
+    #     build:
+    #         context: ./api/
+    #     expose: 
+    #         - "8080"
+    #     volumes: 
+    #         - ./api:/api
+    #     depends_on:
+    #         - mysql
+    #     container_name: component-api
+    #     tty: true
+    #     networks:
+    #         - app-net
 
-    nginx-api:
-        build:
-            context: ./nginx-api/
-        restart: always
-        ports: 
-            - "81:81"
-        depends_on:
-            - api
-        container_name: component-nginx-api
-        networks:
-            - app-net
+    # nginx-api:
+    #     build:
+    #         context: ./nginx-api/
+    #     restart: always
+    #     ports: 
+    #         - "81:81"
+    #     depends_on:
+    #         - api
+    #     container_name: component-nginx-api
+    #     networks:
+    #         - app-net
 
     # app:
     #     build:

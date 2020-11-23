@@ -5,7 +5,7 @@ const authRouter = Express.Router()
 
 authRouter.post('/login', async (req, res) => {
 
-    const response = await fetch(`http://localhost:81/users/signin?username=${req.query.username}&password=${req.query.password}`, { method: 'POST' })
+    const response = await fetch(`http://localhost:8080/users/signin?username=${req.query.username}&password=${req.query.password}`, { method: 'POST' })
     
     if (response.status !== 200) {
         return res.status(404).send({message: 'ユーザーネームもしくはパスワードが違います'})
@@ -18,8 +18,6 @@ authRouter.post('/login', async (req, res) => {
 
 authRouter.post('/signup', async (req, res) => {
 
-    console.log(req)
-
     const options = {
         method: 'POST',
         body:    JSON.stringify(req.body),
@@ -30,7 +28,7 @@ authRouter.post('/signup', async (req, res) => {
     }
 
     console.log(options)
-    const response = await fetch(`http://localhost:81/users/signup`, options)
+    const response = await fetch(`http://localhost:8080/users/signup`, options)
     
     if (response.status !== 200) {
         return res.status(404).send({message: 'ユーザーネームもしくはパスワードが登録済みの可能性があります'})

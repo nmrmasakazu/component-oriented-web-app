@@ -14,9 +14,11 @@ import  com.nmrmasakazu.api.service.PromiseService;
 
 import java.util.List;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,14 +48,14 @@ public class ItemController {
     }
 
     @PostMapping("/additemch")
-    public String additemch(ItemCh itemCh) {
+    public String additemch(@RequestBody ItemCh itemCh) {
         String item = itemCh.getItem();
         ItemCh newItemCh = new ItemCh(item);
         itemService.saveItemCh(newItemCh);
         return "";
     }
 
-    @GetMapping("/removeitemch/{id}")
+    @DeleteMapping("/removeitemch/{id}")
     public String removeitemch(@PathVariable("id") int id) {
         ItemCh itemCh = itemService.findItemChById(id);
         itemService.deleteItemCh(itemCh);

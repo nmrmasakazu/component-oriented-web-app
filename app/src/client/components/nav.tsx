@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import Cookie from 'js-cookie'
 import Router from 'next/router'
 import { COOKIES } from '../services/auth/login'
