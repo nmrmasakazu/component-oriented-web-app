@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Nav from '../../components/nav'
 import { privateAdminRoute } from '../../components/privateRoute'
-import { itemch, addItemch, removeItemch } from '../../services/item/index'
+import { itemch, addItemch, removeItemch } from '../../services/item/itemch'
 import { ItemControl } from '../../../types/ItemControl'
 import Item from '../../components/Item'
 
@@ -24,7 +23,7 @@ const ItemCh = () => {
         e.preventDefault()
         const res = await addItemch(newItemName)
         if (res == 'OK') {
-            // alert(`登録されました ${newItemName}`)
+            alert(`登録されました ${newItemName}`)
             setNewItemName("")
             fetchData()
         }
@@ -44,7 +43,8 @@ const ItemCh = () => {
           handleSubmit: handleSubmit,
           handleNewItem: handleNewItem,
           handleRemoveItem: handleRemoveItem,
-          item: item
+          item: item,
+          title: '挑戦項目'
       }
 
     return <>

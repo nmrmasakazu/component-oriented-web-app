@@ -2,22 +2,22 @@ import React from 'react'
 import Nav from './nav'
 import { ItemControl } from '../../types/ItemControl'
 
-const Item = (Props: ItemControl) => {
+const Item = (props: ItemControl) => {
     return <>
     <div id="wrapper">
         <Nav />
         <div className="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <div className="container-fluid">
-                    <h3 className="text-dark mb-4">挑戦項目の編集</h3>
+                    <h3 className="text-dark mb-4">{props.title}の編集</h3>
                     <div className="card shadow">
                         <div className="card-header py-3">
-                            <p className="text-primary m-0 font-weight-bold">挑戦項目の追加（登録済みと同じ項目名の追加はエラーがでます）</p>
+                            <p className="text-primary m-0 font-weight-bold">{props.title}の追加（登録済みと同じ項目名の追加はエラーがでます）</p>
                         </div>
                         <div className="card-body">
-                            <form onSubmit={Props.handleSubmit}>
+                            <form onSubmit={props.handleSubmit}>
                                 <div className="form-group">
-                                    <input className="form-control" type="text" name="item" placeholder="追加する挑戦項目を記入してください（255文字まで）" maxLength={255} onChange={Props.handleNewItem}/>
+                                    <input className="form-control" type="text" name="item" placeholder="追加する挑戦項目を記入してください（255文字まで）" maxLength={255} onChange={props.handleNewItem}/>
                                 </div>
                                 <div className="form-group">
                                     <button className="btn">追加</button>
@@ -38,7 +38,7 @@ const Item = (Props: ItemControl) => {
                     </div>
                     <div className="card shadow">
                         <div className="card-header py-3">
-                            <p className="text-primary m-0 font-weight-bold">登録済みの挑戦項目を表示中（タイプミス以外の削除はしないでください）</p>
+                            <p className="text-primary m-0 font-weight-bold">登録済みの{props.title}を表示中（タイプミス以外の削除はしないでください）</p>
                         </div>
                         <div className="card-body">
                             <div className="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
@@ -50,10 +50,10 @@ const Item = (Props: ItemControl) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {Props.item.map((i, index) => 
+                                        {props.item.map((i, index) => 
                                         <tr key={i.id}>
                                             <td>{i.id} - {i.item}</td>
-                                            <td><button className="btn" onClick={() => Props.handleRemoveItem(i.id)}>削除</button></td>
+                                            <td><button className="btn" onClick={() => props.handleRemoveItem(i.id)}>削除</button></td>
                                         </tr>)}
                                     </tbody>
                                     <tfoot>

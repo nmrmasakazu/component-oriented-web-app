@@ -69,18 +69,18 @@ public class ItemController {
     }
 
     @PostMapping("/additemtr")
-    public String additemtr(ItemTr itemTr) {
+    public String additemtr(@RequestBody ItemTr itemTr) {
         String item = itemTr.getItem();
         ItemTr newItemTr = new ItemTr(item);
         itemService.saveItemTr(newItemTr);
-        return "OK";
+        return "";
     }
 
-    @GetMapping("/removeitemtr/{id}")
+    @DeleteMapping("/removeitemtr/{id}")
     public String removeitemtr(@PathVariable("id") int id) {
         ItemTr itemTr = itemService.findItemTrById(id);
         itemService.deleteItemTr(itemTr);
-        return "OK";
+        return "";
     }
 
 }
