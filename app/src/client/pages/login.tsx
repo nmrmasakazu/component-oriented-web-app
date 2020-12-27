@@ -13,10 +13,8 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    const res = await login(inputs)
-    if (res) {
-      setError(res)
-    }
+    const message = await login(inputs)
+    if ( message ) { setError(message) }
   }
 
   const handleInputChange = (e: React.ChangeEvent<any>) => {

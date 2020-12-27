@@ -48,18 +48,18 @@ public class ItemController {
     }
 
     @PostMapping("/additemch")
-    public String additemch(@RequestBody ItemCh itemCh) {
+    public ItemCh additemch(@RequestBody ItemCh itemCh) {
         String item = itemCh.getItem();
         ItemCh newItemCh = new ItemCh(item);
         itemService.saveItemCh(newItemCh);
-        return "";
+        return newItemCh;
     }
 
     @DeleteMapping("/removeitemch/{id}")
-    public String removeitemch(@PathVariable("id") int id) {
+    public ItemCh removeitemch(@PathVariable("id") int id) {
         ItemCh itemCh = itemService.findItemChById(id);
         itemService.deleteItemCh(itemCh);
-        return "";
+        return itemCh;
     }
 
     // ItemTr - Training Contents
@@ -69,18 +69,18 @@ public class ItemController {
     }
 
     @PostMapping("/additemtr")
-    public String additemtr(@RequestBody ItemTr itemTr) {
+    public ItemTr additemtr(@RequestBody ItemTr itemTr) {
         String item = itemTr.getItem();
         ItemTr newItemTr = new ItemTr(item);
         itemService.saveItemTr(newItemTr);
-        return "";
+        return newItemTr;
     }
 
     @DeleteMapping("/removeitemtr/{id}")
-    public String removeitemtr(@PathVariable("id") int id) {
+    public ItemTr removeitemtr(@PathVariable("id") int id) {
         ItemTr itemTr = itemService.findItemTrById(id);
         itemService.deleteItemTr(itemTr);
-        return "";
+        return itemTr;
     }
 
 }

@@ -10,6 +10,8 @@ public class UserDataDTO {
 
     private String email;
 
+    private String plainPassword;
+
     private String password;
 
     List<Role> roles;
@@ -28,6 +30,14 @@ public class UserDataDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPlainPassword() {
+        return password;
+    }
+
+    public void setPlainPassword(String password) {
+        this.password = password;
     }
 
     public String getPassword() {

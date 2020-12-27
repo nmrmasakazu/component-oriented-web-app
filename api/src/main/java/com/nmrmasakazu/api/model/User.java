@@ -32,7 +32,6 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Size(min = 8, message = "パスワードは8文字以上にしてください")
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)

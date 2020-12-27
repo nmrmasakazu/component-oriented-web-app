@@ -8,6 +8,7 @@ const ItemTr = () => {
 
     const [item, setItem] = useState([])
     const [newItemName, setNewItemName] = useState("")
+    const [error, setError] = useState('')
 
     const fetchData = async () => {
         const items: any = await itemtr()
@@ -22,6 +23,7 @@ const ItemTr = () => {
     const handleSubmit = async (e: any) => {
         e.preventDefault()
         const res = await addItemtr(newItemName)
+        
         if (res == 'OK') {
             alert(`登録されました ${newItemName}`)
             setNewItemName("")
@@ -44,7 +46,8 @@ const ItemTr = () => {
         handleNewItem: handleNewItem,
         handleRemoveItem: handleRemoveItem,
         item: item,
-        title: '自主トレ項目'
+        title: '自主トレ項目',
+        error: error
     }
 
     return <>

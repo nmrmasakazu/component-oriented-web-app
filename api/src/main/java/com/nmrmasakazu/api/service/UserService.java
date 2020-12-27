@@ -4,6 +4,8 @@ import com.nmrmasakazu.api.dto.TokenDTO;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -48,16 +50,27 @@ public class UserService {
     /**
      * サインアップ
      */
-    public String signup(User user) {
-        // すでにユーザ名が存在しないことのチェック
-        if (!userRepository.existsByUsername(user.getUsername())) {
-            System.out.println(passwordEncoder.encode(user.getPassword()));
+    public TokenDTO signup(User user) {
+        String username = user.getUsername();
+
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new CustomException("すでに登録済みのユーザ名です", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        if (user.getPassword().length() < 8) {
+            throw new CustomException("パスワードは8文字以上にしてください", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+
+        try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
-            return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
-        } else {
-            throw new CustomException("すでにユーザ名が使用されています", HttpStatus.UNPROCESSABLE_ENTITY);
+            String token =  jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+            return new TokenDTO(token);
+        } catch (ConstraintViolationException e) {
+            for (ConstraintViolation cv : e.getConstraintViolations()) {
+                throw new CustomException(cv.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+            }
         }
+        throw new CustomException("Something went wrong", HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     /**

@@ -6,10 +6,8 @@ export async function itemtr(): Promise<string | void> {
 
     if (res.error) {
         return res.error
-    } else if (!res.data) {
-        return 'ERROR'
     }
-    return res.data
+    return res.json()
 }
 
 export async function addItemtr(name: string): Promise<string | void> {
@@ -22,10 +20,8 @@ export async function addItemtr(name: string): Promise<string | void> {
 
     if (res.error) {
         return res.error
-    } else if (!res.data) {
-        return 'ERROR'
     }
-    return 'OK'
+    return res.json()
 }
 
 export async function removeItemtr(id: number): Promise<string | void> {
@@ -34,8 +30,6 @@ export async function removeItemtr(id: number): Promise<string | void> {
 
     if (res.error) {
         return res.error
-    } else if (!res.data) {
-        return 'ERROR'
     }
-    return 'OK'
+    return res.json()
 }

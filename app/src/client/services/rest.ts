@@ -7,7 +7,14 @@ const baseConfig: AxiosRequestConfig = {
 }
 
 export const post = async (url: string, data: any) => {
-    return await axios.post(url, data, baseConfig).catch(catchAxiosError)
+    return await axios.post(url, data, baseConfig).then(response => { 
+        // return response
+        if (response.error) {
+            return res.error
+        } else if (!res.data) {
+            return 'ERROR'
+        }
+    })
 }
 
 export const remove = async (url: string) => {

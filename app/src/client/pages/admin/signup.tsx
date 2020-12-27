@@ -3,6 +3,7 @@ import Nav from '../../components/nav'
 import { privateAdminRoute } from '../../components/privateRoute'
 import { Signup } from '../../../types/Signup'
 import { signup } from '../../services/auth/signup'
+import { ResponseResult } from '../../../types/ResponseResult'
 
 const SignupPage = () => {
 
@@ -11,65 +12,60 @@ const SignupPage = () => {
         password: '',
         email: '',
         roles: ['ROLE_CLIENT']
-      }
-      const [inputs, setInputs] = useState(initialValues)
-      const [error, setError] = useState('')
-    
-      const handleSubmit = async (e: any) => {
+    }
+    const [inputs, setInputs] = useState(initialValues)
+    const [error, setError] = useState('')
+
+    const handleSubmit = async (e: any) => {
         e.preventDefault()
-        const res = await signup(inputs)
-        if (res == 'OK') {
-            alert(`登録されました ${inputs.username} ${inputs.password}`)
-            setInputs({
-                username: '',
-                password: '',
-                email: '',
-                roles: ['ROLE_CLIENT']
-            })
-            return
+        setError('')
+        const responseResult: ResponseResult = await signup(inputs)
+        console.log(responseResult)
+        if (responseResult.success) {
+            alert(`【登録完了】 ユーザ名: ${inputs.username}`)
+            setInputs(initialValues)
+        } else {
+            setError(responseResult.message)
         }
-        if (res) {
-          setError(res)
-        }
-      }
-    
-      const handleInputChange = (e: React.ChangeEvent<any>) => {
+    }
+
+    const handleInputChange = (e: React.ChangeEvent<any>) => {
         e.persist()
         setInputs({
-          ...inputs,
-          [e.target.name]: e.target.value,
-          email: e.target.value // TODO EMAILは削除
+            ...inputs,
+            [e.target.name]: e.target.value,
+            email: e.target.value // TODO: EMAILは不要
         })
-      }
+    }
 
     return <>
         <div id="wrapper">
             <Nav />
             <div className="d-flex flex-column" id="content-wrapper">
-            <div id="content">
-                <h3 className="text-dark mb-4">ユーザーの新規作成</h3>
-                <h6 className="text-dark mb-4">ユーザネームは20文字まで</h6>
-                <form id="form-round" onSubmit={handleSubmit}>
-                    <h5 className="text-right"></h5>
-                    <div className="form-group">
-                        <input className="form-control" type="text" name="username" placeholder="ユーザーネーム" maxLength={20} onChange={handleInputChange}/>
-                    </div>
-                    <div className="form-group">
-                        <input className="form-control" type="password" placeholder="パスワード" name="password" onChange={handleInputChange}/>
-                    </div>
-                    {error ? <p className="err">Error: {error}</p> : null}
-                    <div className="form-group" id="center-1">
-                        <button className="btn">新規作成</button></div>
-                </form>
+                <div id="content">
+                    <h3 className="text-dark mb-4">ユーザーの新規作成</h3>
+                    <h6 className="text-dark mb-4">ユーザネームは20文字まで</h6>
+                    <form id="form-round" onSubmit={handleSubmit}>
+                        <h5 className="text-right"></h5>
+                        <div className="form-group">
+                            <input className="form-control" type="text" name="username" placeholder="ユーザーネーム" maxLength={20} onChange={handleInputChange} />
+                        </div>
+                        <div className="form-group">
+                            <input className="form-control" type="password" placeholder="パスワード" name="password" onChange={handleInputChange} />
+                        </div>
+                        {error ? <p className="err">Error: {error}</p> : null}
+                        <div className="form-group" id="center-1">
+                            <button className="btn">新規作成</button></div>
+                    </form>
+                </div>
+                <footer className="bg-white sticky-footer"></footer>
             </div>
-            <footer className="bg-white sticky-footer"></footer>
-        </div>
 
-            
-        <div>
-    </div>
 
-    <style jsx>{`
+            <div>
+            </div>
+
+            <style jsx>{`
     h3 {
         margin: 20px;        
     }
@@ -93,8 +89,8 @@ const SignupPage = () => {
         color: rgb(255,255,255) !important;
     }
       `}</style>
-    </div>
-    <style>{`body {background-color: #f8f9fc}`}</style>
+        </div>
+        <style>{`body {background-color: #f8f9fc}`}</style>
     </>
 }
 

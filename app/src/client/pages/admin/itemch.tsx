@@ -7,7 +7,8 @@ import Item from '../../components/Item'
 const ItemCh = () => {
 
     const [item, setItem] = useState([])
-    const [newItemName, setNewItemName] = useState("")
+    const [newItemName, setNewItemName] = useState('')
+    const [error, setError] = useState('')
 
     const fetchData = async () => {
         const items: any = await itemch()
@@ -44,7 +45,8 @@ const ItemCh = () => {
           handleNewItem: handleNewItem,
           handleRemoveItem: handleRemoveItem,
           item: item,
-          title: '挑戦項目'
+          title: '挑戦項目',
+          error: error
       }
 
     return <>

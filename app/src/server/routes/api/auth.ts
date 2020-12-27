@@ -1,6 +1,6 @@
 import Express from 'express'
 import fetch from 'cross-fetch'
-import { host, port } from '../../../const'
+import { host, port, apiNotFound } from '../../../const'
 
 const authRouter = Express.Router()
 
@@ -8,17 +8,15 @@ authRouter.post('/login', async (req, res) => {
 
     const response = await fetch(`http://${host}:${port}/users/signin?username=${req.query.username}&password=${req.query.password}`, { method: 'POST' })
     .catch( _ => {
-        return res.status(404).send({message: 'APIに接続できません'})
+        return res.status(404).send({message: apiNotFound})
     })
-    
+    const json = await response.json()
+
     if (response.status !== 200) {
-        const json = await response.json()
         return res.status(404).send({message: json.message})
     }
 
-    const json = await response.json()
-    res.status(200).json({ token: json.token })
-
+    return res.status(200).json({ token: json.token })
 })
 
 authRouter.post('/signup', async (req, res) => {
@@ -31,16 +29,17 @@ authRouter.post('/signup', async (req, res) => {
             'Content-Type': 'application/json'
         }
     }
-
-    console.log(options)
-    const response = await fetch(`http://localhost:8080/users/signup`, options)
+    const response = await fetch(`http://${host}:${port}/users/signup`, options)
+    .catch( _ => {
+        return res.status(404).send({message: apiNotFound})
+    })
+    const json = await response.json()
     
     if (response.status !== 200) {
-        return res.status(404).send({message: 'ユーザーネームもしくはパスワードが登録済みの可能性があります'})
+        return res.status(404).send({message: json.message})
     }
 
-    res.status(200).json({ message: '' })
-
+    res.status(200)
 })
 
 export default authRouter

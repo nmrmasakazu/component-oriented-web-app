@@ -38,7 +38,7 @@ public class UserController {
 
     @PostMapping("/signup")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String signup(@RequestBody UserDataDTO user) {
+    public TokenDTO signup(@RequestBody UserDataDTO user) {
         return userService.signup(modelMapper.map(user, User.class));
     }
 

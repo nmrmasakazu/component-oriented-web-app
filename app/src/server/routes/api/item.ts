@@ -1,11 +1,11 @@
 import Express from 'express'
 import fetch from 'cross-fetch'
+import { host, port, apiNotFound } from '../../../const'
 
 const itemRouter = Express.Router()
 
 // ch: 挑戦項目
 itemRouter.get('/itemch', async (req, res) => {
-
     const options = {
         method: 'GET',
         headers: {
@@ -13,19 +13,19 @@ itemRouter.get('/itemch', async (req, res) => {
             'Content-Type': 'application/json'
         }
     }
-    const response = await fetch('http://localhost:8080/item/itemch', options)
+    const response = await fetch(`http://${host}:${port}/item/itemch`, options)
+    .catch( _ => {
+        return res.status(404).send({message: apiNotFound})
+    })
+    const json = await response.json()
     
     if (response.status !== 200) {
-        return response
+        return json.message
     }
-    const json = await response.json()
-
     res.status(200).json(json)
-
 })
 
 itemRouter.post('/additemch', async (req, res) => {
-
     const options = {
         method: 'POST',
         body: JSON.stringify(req.body),
@@ -34,19 +34,19 @@ itemRouter.post('/additemch', async (req, res) => {
             'Content-Type': 'application/json'
         }
     }
-
-    const response = await fetch('http://localhost:8080/item/additemch', options)
+    const response = await fetch(`http://${host}:${port}/item/additemch`, options)
+    .catch( _ => {
+        return res.status(404).send({message: apiNotFound})
+    })
+    const json = await response.json()
     
     if (response.status !== 200) {
-        return res.status(404).send({message: 'ERROR'})
+        return res.status(404).send({message: json.message})
     }
-
-    res.status(200).json({message: ''})
-
+    res.status(200).json(json)
 })
 
 itemRouter.delete('/removeitemch/:id', async (req, res) => {
-
     const options = {
         method: 'DELETE',
         headers: {
@@ -54,20 +54,20 @@ itemRouter.delete('/removeitemch/:id', async (req, res) => {
             'Content-Type': 'application/json'
         }
     }
+    const response = await fetch(`http://${host}:${port}/item/removeitemch/${req.params.id}`, options)
+    .catch( _ => {
+        return res.status(404).send({message: apiNotFound})
+    })
+    const json = await response.json()
 
-    const response = await fetch(`http://localhost:8080/item/removeitemch/${req.params.id}`, options)
-    
     if (response.status !== 200) {
-        return res.status(404).send({message: 'ERROR'})
+        return res.status(404).send({message: json.message})
     }
-
-    res.status(200).json({message: ''})
-
+    res.status(200).json(json)
 })
 
 // tr: トレーニング項目
 itemRouter.get('/itemtr', async (req, res) => {
-
     const options = {
         method: 'GET',
         headers: {
@@ -75,19 +75,19 @@ itemRouter.get('/itemtr', async (req, res) => {
             'Content-Type': 'application/json'
         }
     }
-    const response = await fetch('http://localhost:8080/item/itemtr', options)
-    
-    if (response.status !== 200) {
-        return res.status(404).send({message: 'ERROR'})
-    }
+    const response = await fetch(`http://${host}:${port}/item/itemtr`, options)
+    .catch( _ => {
+        return res.status(404).send({message: apiNotFound})
+    })
     const json = await response.json()
 
+    if (response.status !== 200) {
+        return res.status(404).send({message: json.message})
+    }
     res.status(200).json(json)
-
 })
 
 itemRouter.post('/additemtr', async (req, res) => {
-
     const options = {
         method: 'POST',
         body: JSON.stringify(req.body),
@@ -96,19 +96,18 @@ itemRouter.post('/additemtr', async (req, res) => {
             'Content-Type': 'application/json'
         }
     }
-
-    const response = await fetch('http://localhost:8080/item/additemtr', options)
-    
+    const response = await fetch(`http://${host}:${port}/item/additemtr`, options)
+    .catch( _ => {
+        return res.status(404).send({message: apiNotFound})
+    })
+    const json = await response.json()
     if (response.status !== 200) {
-        return res.status(404).send({message: 'ERROR'})
+        return res.status(404).send({message: json.message})
     }
-
-    res.status(200).json({message: ''})
-
+    res.status(200).json(json)
 })
 
 itemRouter.delete('/removeitemtr/:id', async (req, res) => {
-
     const options = {
         method: 'DELETE',
         headers: {
@@ -116,15 +115,16 @@ itemRouter.delete('/removeitemtr/:id', async (req, res) => {
             'Content-Type': 'application/json'
         }
     }
+    const response = await fetch(`http://${host}:${port}/item/removeitemtr/${req.params.id}`, options)
+    .catch( _ => {
+        return res.status(404).send({message: apiNotFound})
+    })
+    const json = await response.json()
 
-    const response = await fetch(`http://localhost:8080/item/removeitemtr/${req.params.id}`, options)
-    
     if (response.status !== 200) {
-        return res.status(404).send({message: 'ERROR'})
+        return res.status(404).send({message: json.message})
     }
-
-    res.status(200).json({message: ''})
-
+    res.status(200).json(json)
 })
 
 export default itemRouter

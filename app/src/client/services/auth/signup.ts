@@ -1,21 +1,27 @@
 import { Signup } from '../../../types/Signup'
-import { catchAxiosError } from '../error'
-import { post } from '../rest'
+import { ResponseResult } from '../../../types/ResponseResult'
+import axios, { AxiosError } from 'axios'
+import { host, bffPort } from '../../../const'
 
 export const COOKIES = {
     authToken: 'app.authToken'
 }
 
-export async function signup(body: Signup): Promise<string | void> {
+export async function signup(body: Signup): Promise<ResponseResult> {
 
-    const res: any = await post('/api/signup', body).catch(catchAxiosError)
-
-    if (res.error) {
-        return res.error
-    } else if (!res.data) {
-        return 'ERROR'
+    try {
+        axios.post(`http://${host}:${bffPort}/api/signup`, body)
+        const responseResult: ResponseResult = {
+            success: true,
+            message: ''
+        }
+        return responseResult
+    } catch (error) {
+        const e: AxiosError = error
+        const responseResult: ResponseResult = {
+            success: false,
+            message: e.response.data.message
+        }
+        return responseResult
     }
-
-    return 'OK'
-
 }

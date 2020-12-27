@@ -5,5 +5,6 @@ export type ItemControl = {
     handleNewItem: (e: React.ChangeEvent<any>) => void,
     handleRemoveItem: (id: number) => void,
     item: any,
-    title: string
+    title: string,
+    error: string
 }
