@@ -1,7 +1,7 @@
 package com.nmrmasakazu.api.service;
 
+import com.nmrmasakazu.api.dto.TokenDTO;
 import java.util.List;
-import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +35,11 @@ public class UserService {
     /**
      * サインイン
      */
-    public String signin(String username, String password) {
+    public TokenDTO signin(String username, String password) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+            String token = jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+            return new TokenDTO(token);
         } catch (AuthenticationException e) {
             throw new CustomException("ユーザ名またはパスワードが有効ではありません", HttpStatus.UNPROCESSABLE_ENTITY);
         }
@@ -50,6 +51,7 @@ public class UserService {
     public String signup(User user) {
         // すでにユーザ名が存在しないことのチェック
         if (!userRepository.existsByUsername(user.getUsername())) {
+            System.out.println(passwordEncoder.encode(user.getPassword()));
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());

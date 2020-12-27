@@ -1,11 +1,11 @@
 package com.nmrmasakazu.api.controller;
 
+import com.nmrmasakazu.api.dto.TokenDTO;
 import com.nmrmasakazu.api.dto.UserDataDTO;
 import com.nmrmasakazu.api.dto.UserResponseDTO;
 import com.nmrmasakazu.api.model.User;
 import com.nmrmasakazu.api.service.UserService;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.modelmapper.ModelMapper;
@@ -32,9 +32,8 @@ public class UserController {
     private ModelMapper modelMapper;
 
     @PostMapping("/signin")
-    public String login(@RequestParam String username, @RequestParam String password) {
-        String token = userService.signin(username, password);
-        return "{\"token\":" + token + "}";
+    public TokenDTO login(@RequestParam String username, @RequestParam String password) {
+        return userService.signin(username, password);
     }
 
     @PostMapping("/signup")

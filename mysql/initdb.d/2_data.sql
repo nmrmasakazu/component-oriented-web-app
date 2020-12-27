@@ -1,3 +1,7 @@
+INSERT INTO user (email, password, username) VALUES ('admin@email.com', '$2a$12$p8CqI9WNN03O8SUEaft4fOhueYoD..XVkwFf1AgfyZtVtEocu8j6y', 'admin');
+INSERT INTO user (email, password, username) VALUES ('client@email.com', '$2a$12$okHlkt6a.R/okhDLr5xNdeojsqZF5YW0BYQro87HYPrqS.RyQprIe', 'client');
+
+
 INSERT INTO item_tr (item) VALUES ('ワイピング');
 INSERT INTO item_tr (item) VALUES ('ペットボトル移動');
 INSERT INTO item_tr (item) VALUES ('ボール移動');
