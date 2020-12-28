@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { privateAdminRoute } from '../../components/privateRoute'
-import { itemch, addItemch, removeItemch } from '../../services/item/itemch'
+import { getItem, addItem, removeItem } from '../../services/item/item'
 import { ItemControl } from '../../../types/ItemControl'
 import Item from '../../components/Item'
 
@@ -11,8 +11,8 @@ const ItemCh = () => {
     const [error, setError] = useState('')
 
     const fetchData = async () => {
-        const items: any = await itemch()
-        const sorted = items.sort((i1, i2)=>i1.id - i2.id)
+        const result = await getItem('ch')
+        const sorted = result.data.sort((i1, i2) => i1.id - i2.id)
         setItem(sorted)
     }
 
@@ -22,23 +22,25 @@ const ItemCh = () => {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
-        const res = await addItemch(newItemName)
-        if (res == 'OK') {
-            alert(`登録されました ${newItemName}`)
-            setNewItemName("")
+        const result = await addItem('ch', newItemName)
+        if (result.success) {
+            alert(`【登録完了】 項目名: ${result.data.item}`)
+            setNewItemName('')
             fetchData()
+        } else {
+            setError(result.message)
         }
-      }
-    
-      const handleNewItem = (e: React.ChangeEvent<any>) => {
+    }
+
+    const handleNewItem = (e: React.ChangeEvent<any>) => {
         e.persist()
         setNewItemName(e.target.value)
-      }
+    }
 
-      const handleRemoveItem = async (id: number) => {
-          await removeItemch(id)
-          fetchData()
-      }
+    const handleRemoveItem = async (id: number) => {
+        await removeItem('ch', id)
+        fetchData()
+    }
 
       const control: ItemControl = {
           handleSubmit: handleSubmit,
