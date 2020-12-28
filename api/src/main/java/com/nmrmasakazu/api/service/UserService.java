@@ -99,8 +99,8 @@ public class UserService {
         return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
     }
 
-    public List<User> findAllUser() {
-        return userRepository.findByUser();
+    public List<User> findClientUsers() {
+        return userRepository.findClientUsers();
     }
 
 }

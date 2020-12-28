@@ -1,19 +1,13 @@
-import { User } from '../../../types/User'
-import { ResponseResult } from '../../../types/ResponseResult'
 import axios, { AxiosError } from 'axios'
+import { ResponseResult } from '../../../types/ResponseResult'
 import { host, bffPort } from '../../../const'
 
-export const COOKIES = {
-    authToken: 'app.authToken'
-}
-
-export async function signup(body: User): Promise<ResponseResult> {
-
+export async function getClients(): Promise<ResponseResult> {
     try {
-        axios.post(`http://${host}:${bffPort}/api/signup`, body)
+        const response = await axios.get(`http://${host}:${bffPort}/api/clients`)
         const responseResult: ResponseResult = {
             success: true,
-            message: ''
+            data: response.data
         }
         return responseResult
     } catch (error) {

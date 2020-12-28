@@ -42,4 +42,26 @@ authRouter.post('/signup', async (req, res) => {
     res.status(200)
 })
 
+authRouter.get('/clients', async (req, res) => {
+
+    const options = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${req.cookies.authToken}`,
+            'Content-Type': 'application/json'
+        }
+    }
+    const response = await fetch(`http://${host}:${port}/users/clients`, options)
+    .catch( _ => {
+        return res.status(404).send({message: apiNotFound})
+    })
+    const json = await response.json()
+    
+    if (response.status !== 200) {
+        return res.status(404).send({message: json.message})
+    }
+
+    res.status(200).json(json)
+})
+
 export default authRouter

@@ -1,8 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Nav from '../../components/nav'
 import { privateAdminRoute } from '../../components/privateRoute'
+import { getClients } from '../../services/auth/clients'
+import { User } from '../../../types/User'
+
 
 const UserTablePage = () => {
+
+    const initialUsers: User[] = []
+    const [users, setUsers] = useState(initialUsers)
+
+    const fetchData = async () => {
+        const result = await getClients()
+        const fetchedUsers: User[] = result.data
+        setUsers(fetchedUsers)
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
 
     return <>
         <div id="wrapper">
@@ -20,17 +36,19 @@ const UserTablePage = () => {
                                     <table className="table dataTable my-0" id="dataTable">
                                         <thead>
                                             <tr>
-                                                <th>ユーザーネーム</th>
+                                                <th>ユーザー名</th>
                                                 <th>自主トレ項目</th>
                                                 <th>挑戦項目</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-
-                                                </td>
-                                            </tr>
+                                            {users.map((user, index) => 
+                                                <tr key={index}>
+                                                    <td>{user.username}</td>
+                                                    <td><button className="btn" type="button"><a href={`/admin/useritemtr/${user.id}`}>自主トレ項目</a></button></td>
+                                                    <td><button className="btn" type="button"><a href={`/admin/useritemch/${user.id}`}>挑戦項目</a></button></td>
+                                                </tr>
+                                            )}
                                         </tbody>
                                         <tfoot>
                                             <tr></tr>
@@ -42,16 +60,16 @@ const UserTablePage = () => {
                     </div>
                 </div>
             </div>
-        <div>
-    </div>
+            <div>
+            </div>
 
-    <style jsx>{`
+            <style jsx>{`
       h3 {
         margin: 20px;
       }
       `}</style>
-    </div>
-    <style>{`body {background-color: #f8f9fc}`}</style>
+        </div>
+        <style>{`body {background-color: #f8f9fc}`}</style>
     </>
 }
 

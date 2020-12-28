@@ -17,7 +17,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Transactional
     void deleteByUsername(String username);
 
-    @Query(value = "select * from user", nativeQuery = true)
-    List<User> findByUser();
+    @Query(value = "select * from user where id in (select user_id from user_roles where roles = 1);", nativeQuery = true)
+    List<User> findClientUsers();
 
 }

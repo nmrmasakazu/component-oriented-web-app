@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import Nav from '../../components/nav'
 import { privateAdminRoute } from '../../components/privateRoute'
-import { Signup } from '../../../types/Signup'
+import { User } from '../../../types/User'
 import { signup } from '../../services/auth/signup'
 import { ResponseResult } from '../../../types/ResponseResult'
 
 const SignupPage = () => {
 
-    const initialValues: Signup = {
+    const initialValues: User = {
         username: '',
         password: '',
         email: '',
@@ -20,7 +20,6 @@ const SignupPage = () => {
         e.preventDefault()
         setError('')
         const responseResult: ResponseResult = await signup(inputs)
-        console.log(responseResult)
         if (responseResult.success) {
             alert(`【登録完了】 ユーザ名: ${inputs.username}`)
             setInputs(initialValues)
@@ -34,7 +33,7 @@ const SignupPage = () => {
         setInputs({
             ...inputs,
             [e.target.name]: e.target.value,
-            email: e.target.value // TODO: EMAILは不要
+            email: inputs.username + '@email.com' // TODO: EMAILは不要
         })
     }
 

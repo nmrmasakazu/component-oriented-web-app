@@ -67,9 +67,9 @@ public class UserController {
         return userService.refresh(req.getRemoteUser());
     }
 
-    @GetMapping(value = {"", "index"})
+    @GetMapping("/clients")
     public List<User> allUser(Model model) {
-        return userService.findAllUser();
+        return userService.findClientUsers();
     }
 
 }
