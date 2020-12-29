@@ -4,7 +4,7 @@ import { host, bffPort } from '../../../const'
 
 export async function getClients(): Promise<ResponseResult> {
     try {
-        const response = await axios.get(`http://${host}:${bffPort}/api/clients`)
+        const response = await axios.get(`http://${host}:${bffPort}/bff/clients`)
         const responseResult: ResponseResult = {
             success: true,
             data: response.data

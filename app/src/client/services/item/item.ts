@@ -4,7 +4,7 @@ import { host, bffPort } from '../../../const'
 
 export async function getItem(type: 'tr' | 'ch'): Promise<ResponseResult> {
     try {
-        const response = await axios.get(`http://${host}:${bffPort}/api/item${type}`)
+        const response = await axios.get(`http://${host}:${bffPort}/bff/item${type}`)
         const responseResult: ResponseResult = {
             success: true,
             data: response.data
@@ -22,7 +22,7 @@ export async function getItem(type: 'tr' | 'ch'): Promise<ResponseResult> {
 
 export async function addItem(type: 'tr' | 'ch', name: string): Promise<ResponseResult> {
     try {
-        const response = await axios.post(`http://${host}:${bffPort}/api/additem${type}`, { item: name })
+        const response = await axios.post(`http://${host}:${bffPort}/bff/additem${type}`, { item: name })
         const responseResult: ResponseResult = {
             success: true,
             data: response.data
@@ -40,7 +40,7 @@ export async function addItem(type: 'tr' | 'ch', name: string): Promise<Response
 
 export async function removeItem(type: 'tr' | 'ch', id: number): Promise<ResponseResult> {
     try {
-        const response = await axios.delete(`http://${host}:${bffPort}/api/removeitem${type}/${id}`)
+        const response = await axios.delete(`http://${host}:${bffPort}/bff/removeitem${type}/${id}`)
         const responseResult: ResponseResult = {
             success: true,
             data: response.data

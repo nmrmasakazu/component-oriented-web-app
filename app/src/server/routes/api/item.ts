@@ -13,7 +13,7 @@ itemRouter.get('/itemch', async (req, res) => {
             'Content-Type': 'application/json'
         }
     }
-    const response = await fetch(`http://${host}:${port}/item/itemch`, options)
+    const response = await fetch(`http://${host}:${port}/api/item/itemch`, options)
     .catch( _ => {
         return res.status(404).send({message: apiNotFound})
     })
@@ -34,7 +34,7 @@ itemRouter.post('/additemch', async (req, res) => {
             'Content-Type': 'application/json'
         }
     }
-    const response = await fetch(`http://${host}:${port}/item/additemch`, options)
+    const response = await fetch(`http://${host}:${port}/api/item/additemch`, options)
     .catch( _ => {
         return res.status(404).send({message: apiNotFound})
     })
@@ -54,7 +54,7 @@ itemRouter.delete('/removeitemch/:id', async (req, res) => {
             'Content-Type': 'application/json'
         }
     }
-    const response = await fetch(`http://${host}:${port}/item/removeitemch/${req.params.id}`, options)
+    const response = await fetch(`http://${host}:${port}/api/item/removeitemch/${req.params.id}`, options)
     .catch( _ => {
         return res.status(404).send({message: apiNotFound})
     })
@@ -75,7 +75,7 @@ itemRouter.get('/itemtr', async (req, res) => {
             'Content-Type': 'application/json'
         }
     }
-    const response = await fetch(`http://${host}:${port}/item/itemtr`, options)
+    const response = await fetch(`http://${host}:${port}/api/item/itemtr`, options)
     .catch( _ => {
         return res.status(404).send({message: apiNotFound})
     })
@@ -96,7 +96,7 @@ itemRouter.post('/additemtr', async (req, res) => {
             'Content-Type': 'application/json'
         }
     }
-    const response = await fetch(`http://${host}:${port}/item/additemtr`, options)
+    const response = await fetch(`http://${host}:${port}/api/item/additemtr`, options)
     .catch( _ => {
         return res.status(404).send({message: apiNotFound})
     })
@@ -115,7 +115,7 @@ itemRouter.delete('/removeitemtr/:id', async (req, res) => {
             'Content-Type': 'application/json'
         }
     }
-    const response = await fetch(`http://${host}:${port}/item/removeitemtr/${req.params.id}`, options)
+    const response = await fetch(`http://${host}:${port}/api/item/removeitemtr/${req.params.id}`, options)
     .catch( _ => {
         return res.status(404).send({message: apiNotFound})
     })

@@ -11,7 +11,7 @@ export const COOKIES = {
 
 export async function login(inputs: LoginInputs): Promise<string | void> {
     try {
-        const response = await axios.post(`http://${host}:${bffPort}/api/login?username=${inputs.username}&password=${inputs.password}`)
+        const response = await axios.post(`http://${host}:${bffPort}/bff/login?username=${inputs.username}&password=${inputs.password}`)
 
         Cookie.set(COOKIES.authToken, response.data.token)
         const auth = new AuthToken(response.data.token)

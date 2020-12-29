@@ -36,18 +36,6 @@ services:
     #     networks:
     #         - app-net
 
-    # nginx-api:
-    #     build:
-    #         context: ./nginx-api/
-    #     restart: always
-    #     ports: 
-    #         - "81:81"
-    #     depends_on:
-    #         - api
-    #     container_name: component-nginx-api
-    #     networks:
-    #         - app-net
-
     # app:
     #     build:
     #         context: ./app/
@@ -60,17 +48,17 @@ services:
     #     networks:
     #         - app-net
 
-    # nginx-app:
-    #     build:
-    #         context: ./nginx-app/
-    #     restart: always
-    #     ports: 
-    #         - "80:80"
-    #     depends_on:
-    #         - app
-    #     container_name: component-nginx-app
-    #     networks:
-    #         - app-net
+    nginx-gateway:
+        build:
+            context: ./nginx-gateway/
+        restart: always
+        ports: 
+            - "80:80"
+        # depends_on:
+        #     - app
+        container_name: component-nginx-gateway
+        networks:
+            - app-net
 
 networks:
     app-net:

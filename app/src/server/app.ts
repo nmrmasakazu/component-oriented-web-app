@@ -18,8 +18,8 @@ async function main() {
     app.use(cookieParser())
     app.use(bodyParser())
 
-    app.use('/api', authRouter)
-    app.use('/api', itemRouter)
+    app.use('/bff', authRouter)
+    app.use('/bff', itemRouter)
 
     // Next.jsをミドルウェアとして使う
     app.use((req, res) => {
