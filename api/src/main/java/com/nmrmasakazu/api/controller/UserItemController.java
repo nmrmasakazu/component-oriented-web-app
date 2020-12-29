@@ -1,8 +1,8 @@
 package com.nmrmasakazu.api.controller;
 
+import com.nmrmasakazu.api.dto.UserItemDTO;
 import com.nmrmasakazu.api.model.User;
 
-import com.nmrmasakazu.api.domain.Promise;
 import com.nmrmasakazu.api.domain.item.ItemCh;
 import com.nmrmasakazu.api.domain.item.ItemTr;
 import com.nmrmasakazu.api.domain.item.UserItemCh;
@@ -18,6 +18,8 @@ import java.util.List;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,48 +46,55 @@ public class UserItemController {
     @GetMapping("/useritemch/{username}")
     public List<ItemCh> useritemch(@PathVariable("username") String username, Model model) {
         User user = userService.search(username);
-        List<ItemCh> userItemChStr = userItemService.findItemChByUserId(user.getId());
-//        List<ItemCh> newItemChList = userItemService.findNotItemChByUserId(user.getId());
-        return userItemChStr;
+        return userItemService.findItemChByUserId(user.getId());
     }
 
-
-    @GetMapping("/adduseritem/{username}/{id}")
-    public String adduseritem(@PathVariable("username") String username, @PathVariable("id") int id) {
+    @GetMapping("/notuseritemch/{username}")
+    public List<ItemCh> notuseritemch(@PathVariable("username") String username, Model model) {
         User user = userService.search(username);
-        ItemCh itemCh = itemService.findItemChById(id);
+        return userItemService.findNotItemChByUserId(user.getId());
+    }
+
+    @PostMapping("/adduseritemch")
+    public UserItemCh adduseritem(@RequestBody UserItemDTO userItem) {
+        User user = userService.search(userItem.getUsername());
+        ItemCh itemCh = itemService.findItemChById(userItem.getId());
         UserItemCh userItemCh = new UserItemCh(itemCh.getId(), user.getId(), itemCh, user);
         userItemService.saveItemCh(userItemCh);
-        return "OK";
+        return userItemCh;
     }
 
-    @GetMapping("/removeuseritem/{username}/{item}")
-    public String removeuseritem(@PathVariable("username") String username, @PathVariable("item") String item) {
-        userItemService.deleteItemCh(username, item);
-        return "OK";
+    @PostMapping("/removeuseritemch")
+    public UserItemDTO removeuseritem(@RequestBody UserItemDTO userItem) {
+        userItemService.deleteItemCh(userItem.getUsername(), userItem.getItem());
+        return userItem;
     }
 
     // UserItemTr - Training Contents for each user
     @GetMapping("/useritemtr/{username}")
     public List<ItemTr> useritemtr(@PathVariable("username") String username, Model model) {
         User user = userService.search(username);
-        List<ItemTr> userItemTrStr = userItemService.findItemTrByUserId(user.getId());
-        List<ItemTr> newItemTrList = userItemService.findNotItemTrByUserId(user.getId());
         return userItemService.findItemTrByUserId(user.getId());
     }
 
-    @GetMapping("/adduseritemtr/{username}/{id}")
-    public String adduseritemtr(@PathVariable("username") String username, @PathVariable("id") int id) {
+    @GetMapping("/notuseritemtr/{username}")
+    public List<ItemTr> notuseritemtr(@PathVariable("username") String username, Model model) {
         User user = userService.search(username);
-        ItemTr itemTr = itemService.findItemTrById(id);
-        UserItemTr userItemTr = new UserItemTr(itemTr.getId(), user.getId(), itemTr, user);
-        userItemService.saveItemTr(userItemTr);
-        return "OK";
+        return userItemService.findNotItemTrByUserId(user.getId());
     }
 
-    @GetMapping("/removeuseritemtr/{username}/{item}")
-    public String removeuseritemtr(@PathVariable("username") String username, @PathVariable("item") String item) {
-        userItemService.deleteItemTr(username, item);
-        return "OK";
+    @PostMapping("/adduseritemtr")
+    public UserItemTr adduseritemtr(@RequestBody UserItemDTO userItem) {
+        User user = userService.search(userItem.getUsername());
+        ItemTr itemTr = itemService.findItemTrById(userItem.getId());
+        UserItemTr userItemTr = new UserItemTr(itemTr.getId(), user.getId(), itemTr, user);
+        userItemService.saveItemTr(userItemTr);
+        return userItemTr;
+    }
+
+    @PostMapping("/removeuseritemtr")
+    public UserItemDTO removeuseritemtr(@RequestBody UserItemDTO userItem) {
+        userItemService.deleteItemTr(userItem.getUsername(), userItem.getItem());
+        return userItem;
     }
 }

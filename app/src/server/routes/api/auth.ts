@@ -6,7 +6,6 @@ const authRouter = Express.Router()
 
 authRouter.post('/login', async (req, res) => {
 
-    console.log(`http://${host}:${port}/api/users/signin?username`)
     const response = await fetch(`http://${host}:${port}/api/users/signin?username=${req.query.username}&password=${req.query.password}`, { method: 'POST' })
     .catch( _ => {
         return res.status(404).send({message: apiNotFound})

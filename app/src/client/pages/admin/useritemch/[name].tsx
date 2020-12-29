@@ -1,104 +1,58 @@
-import React, { useState } from 'react'
-import Nav from '../../../components/nav'
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { privateAdminRoute } from '../../../components/privateRoute'
+import { getUserItem, addUserItem, removeUserItem } from '../../../services/item/userItem'
+import { UserItem, Item } from '../../../../types/Item'
+import UserItemComponent from '../../../components/userItem'
 
-const UserItemCh = () => {
+const UserItemTr = () => {
+
+    const router = useRouter()
+    const name = router.query.name as string
+
+    const [userItem, setUserItem] = useState([])
+    const [notUserItem, setNotUserItem] = useState([])
+    const fetchData = async () => {
+        const result = await getUserItem('ch', name)
+        const userItem: UserItem = result.data
+        setUserItem(userItem.item.sort((i1, i2) => i1.id - i2.id))
+        setNotUserItem(userItem.notItem.sort((i1, i2) => i1.id - i2.id))
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    const handleAddUserItem = async (item: Item) => {
+        const itemWithUsername = {
+            ...item,
+            username: name
+        }
+        await addUserItem('ch', itemWithUsername)
+        fetchData()
+    }
+
+    const handleRemoveUserItem = async (item: Item) => {
+        const itemWithUsername = {
+            ...item,
+            username: name
+        }
+        await removeUserItem('ch', itemWithUsername)
+        fetchData()
+    }
+
+    const userItemControl = {
+        title: '挑戦項目',
+        name: name,
+        userItem: userItem,
+        notUserItem: notUserItem,
+        handleAddUserItem: handleAddUserItem,
+        handleRemoveUserItem: handleRemoveUserItem
+    }
 
     return <>
-        <div id="wrapper">
-            <Nav />
-            <div className="d-flex flex-column" id="content-wrapper">
-            <div id="content">
-                <div className="container-fluid">
-                    <h3 className="text-dark mb-4">XXXさんの挑戦項目の編集</h3>
-                    <div className="card shadow">
-                        <div className="card-header py-3">
-                            <p className="text-primary m-0 font-weight-bold">登録済みの挑戦項目</p>
-                        </div>
-                        <div className="card-body">
-                            <div className="table-responsive table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
-                                <table className="table dataTable my-0" id="dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>項目</th>
-                                            <th>削除</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td><a>削除</a></td>
-                                        </tr>
-                                        <tr></tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr></tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                            <div className="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                <table className="table dataTable my-0" id="dataTable">
-                                    <thead>
-                                        <tr></tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                    <tfoot>
-                                        <tr></tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card shadow">
-                        <div className="card-header py-3">
-                            <p className="text-primary m-0 font-weight-bold">未登録の挑戦項目</p>
-                        </div>
-                        <div className="card-body">
-                            <div className="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                <table className="table dataTable my-0" id="dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>項目</th>
-                                            <th>追加</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td><a>追加</a></td>
-                                        </tr>
-                                        <tr></tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr></tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <footer className="bg-white sticky-footer"></footer>
-        </div>
-
-
-            <style jsx>{`
-    h3 {
-        margin: 20px;
-    }
-    div.card {
-        margin: 0 0 20px 0;
-    }
-    button {
-        margin: 0;
-        width: 150px;
-        background-color: rgb(0, 157, 158) !important;
-        color: rgb(255,255,255) !important;
-    }
-      `}</style>
-        </div >
-        <style>{`body {background-color: #f8f9fc}`}</style>
+        <UserItemComponent {...userItemControl} />
     </>
 }
 
-export default privateAdminRoute(UserItemCh)
+export default privateAdminRoute(UserItemTr)

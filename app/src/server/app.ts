@@ -2,6 +2,7 @@ import Express from 'express'
 import next from 'next'
 import authRouter from './routes/api/auth'
 import itemRouter from './routes/api/item'
+import userItemRouter from './routes/api/useritem'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 
@@ -20,6 +21,7 @@ async function main() {
 
     app.use('/bff', authRouter)
     app.use('/bff', itemRouter)
+    app.use('/bff', userItemRouter)
 
     // Next.jsをミドルウェアとして使う
     app.use((req, res) => {

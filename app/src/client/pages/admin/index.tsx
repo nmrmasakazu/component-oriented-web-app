@@ -45,8 +45,8 @@ const UserTablePage = () => {
                                             {users.map((user, index) => 
                                                 <tr key={index}>
                                                     <td>{user.username}</td>
-                                                    <td><button className="btn" type="button"><a href={`/admin/useritemtr/${user.id}`}>自主トレ項目</a></button></td>
-                                                    <td><button className="btn" type="button"><a href={`/admin/useritemch/${user.id}`}>挑戦項目</a></button></td>
+                                                    <td><button className="btn" type="button"><a href={`/admin/useritemtr/${user.username}`}>自主トレ項目</a></button></td>
+                                                    <td><button className="btn" type="button"><a href={`/admin/useritemch/${user.username}`}>挑戦項目</a></button></td>
                                                 </tr>
                                             )}
                                         </tbody>
