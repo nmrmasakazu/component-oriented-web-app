@@ -9,12 +9,12 @@ type Props = {
 }
 
 class Error extends React.Component<Props> {
-    static async getInitialProps({ res }: NextContext): Promise<Props> {
-        return {
-            title: `Error: ${res!.statusCode}`,
-            errorCode: res!.statusCode!
-        }
-    }
+    // static async getInitialProps({ res }: NextContext): Promise<Props> {
+    //     return {
+    //         title: `Error: ${res!.statusCode}`,
+    //         errorCode: res!.statusCode!
+    //     }
+    // }
     render() {
         return (
             <>

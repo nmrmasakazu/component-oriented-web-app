@@ -1,8 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import Nav from '../../../components/nav'
 import { privateAdminRoute } from '../../../components/privateRoute'
+import { getPromises } from '../../../services/promisetable'
 
 const PromiseTablePage = () => {
+
+    const router = useRouter()
+    const name = router.query.name as string
+
+    const [promises, setPromises] = useState([])
+
+    const fetchData = async () => {
+        const result = await getPromises(name)
+        const promises = result.data
+        setPromises(promises.sort((i1, i2) => i1.id - i2.id))
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
 
     return <>
         <div id="wrapper">
@@ -55,12 +72,16 @@ const PromiseTablePage = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr></tr>
-                                            <tr></tr>
+                                            {promises.map((promise, index) =>
+                                                <tr>
+                                                    <th>{promise.round}日目</th>
+                                                    <th><button className="btn" type="button"><a href={`/detail/${promise.id}`}>詳細の表示</a></button></th>
+                                                    <th><button className="btn" type="button"><a href={`/admin/editpromise/${promise.id}`}>コメント等の編集</a></button></th>
+                                                    <th>{promise.update_time}</th>
+                                                    <th>{promise.update_time_user}</th>
+                                                </tr>
+                                            )}
                                         </tbody>
-                                        <tfoot>
-                                            <tr></tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -69,8 +90,6 @@ const PromiseTablePage = () => {
                 </div>
                 <footer className="bg-white sticky-footer"></footer>
             </div>
-
-
             <div>
             </div>
 
