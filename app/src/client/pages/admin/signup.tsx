@@ -20,6 +20,7 @@ const SignupPage = () => {
         e.preventDefault()
         setError('')
         const responseResult: ResponseResult = await signup(inputs)
+        console.log(responseResult)
         if (responseResult.success) {
             alert(`【登録完了】 ユーザ名: ${inputs.username}`)
             setInputs(initialValues)

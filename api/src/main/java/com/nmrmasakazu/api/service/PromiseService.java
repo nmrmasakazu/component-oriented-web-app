@@ -2,6 +2,7 @@ package com.nmrmasakazu.api.service;
 
 import com.nmrmasakazu.api.domain.Promise;
 import com.nmrmasakazu.api.model.Role;
+import com.nmrmasakazu.api.model.User;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,4 +22,6 @@ public interface PromiseService {
 
     void saveFromAuth(Promise promise);
     void saveFromUser(Promise promise);
+
+    void createPromises(User user);
 }

@@ -41,28 +41,7 @@ CREATE TABLE promise (
     update_time DATETIME,
     update_time_user DATETIME,
     user_id BIGINT NOT NULL,
-    filename VARCHAR(255),
-    trial_order VARCHAR(10),
     FOREIGN KEY(user_id) REFERENCES user(id)
-) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-CREATE TABLE wakka_target (
-    id BIGINT auto_increment PRIMARY KEY,
-    name VARCHAR(20) NOT NULL,
-    times double,
-    forces double
-) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-CREATE TABLE wakka_result (
-    id BIGINT auto_increment PRIMARY KEY,
-    trial BIGINT,
-    times DOUBLE,
-    forces DOUBLE,
-    eye_x DOUBLE,
-    eye_y DOUBLE,
-    promise_id BIGINT NOT NULL,
-    target_name VARCHAR(20) NOT NULL,
-    FOREIGN KEY(promise_id) REFERENCES promise(id)
 ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE item_ch (
@@ -90,3 +69,22 @@ CREATE TABLE user_item_tr (
     FOREIGN KEY(item_id) REFERENCES item_tr(id),
     FOREIGN KEY(user_id) REFERENCES user(id)
 ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CREATE TABLE wakka_target (
+--     id BIGINT auto_increment PRIMARY KEY,
+--     name VARCHAR(20) NOT NULL,
+--     times double,
+--     forces double
+-- ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CREATE TABLE wakka_result (
+--     id BIGINT auto_increment PRIMARY KEY,
+--     trial BIGINT,
+--     times DOUBLE,
+--     forces DOUBLE,
+--     eye_x DOUBLE,
+--     eye_y DOUBLE,
+--     promise_id BIGINT NOT NULL,
+--     target_name VARCHAR(20) NOT NULL,
+--     FOREIGN KEY(promise_id) REFERENCES promise(id)
+-- ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

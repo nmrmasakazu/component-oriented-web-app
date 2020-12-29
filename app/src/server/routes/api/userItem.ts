@@ -14,15 +14,17 @@ userItemRouter.get('/useritem/:type/:username', async (req, res) => {
         }
     }
     const responseUseritem = await fetch(`http://${host}:${port}/api/useritem/useritem${req.params.type}/${req.params.username}`, options)
-    .catch( _ => {
-        return res.status(404).send({message: apiNotFound})
-    })
+    if (responseUseritem.status.toString()[0] === '5') {
+        return res.status(responseUseritem.status).send({ message: responseUseritem.statusText })
+    }
+
     const jsonUserItem = await responseUseritem.json()
 
     const responseNotUseritem = await fetch(`http://${host}:${port}/api/useritem/notuseritem${req.params.type}/${req.params.username}`, options)
-    .catch( _ => {
-        return res.status(404).send({message: apiNotFound})
-    })
+    if (responseNotUseritem.status.toString()[0] === '5') {
+        return res.status(responseNotUseritem.status).send({ message: responseNotUseritem.statusText })
+    }
+
     const jsonNotUserItem = await responseNotUseritem.json()
 
     const userItem: UserItem = {
@@ -46,9 +48,10 @@ userItemRouter.post('/adduseritem/:type', async (req, res) => {
         }
     }
     const response = await fetch(`http://${host}:${port}/api/useritem/adduseritem${req.params.type}`, options)
-    .catch( _ => {
-        return res.status(404).send({message: apiNotFound})
-    })
+    if (response.status.toString()[0] === '5') {
+        return res.status(response.status).send({ message: response.statusText })
+    }
+
     const json = await response.json()
     
     if (response.status !== 200) {
@@ -67,9 +70,10 @@ userItemRouter.post('/removeuseritem/:type', async (req, res) => {
         }
     }
     const response = await fetch(`http://${host}:${port}/api/useritem/removeuseritem${req.params.type}`, options)
-    .catch( _ => {
-        return res.status(404).send({message: apiNotFound})
-    })
+    if (response.status.toString()[0] === '5') {
+        return res.status(response.status).send({ message: response.statusText })
+    }
+
     const json = await response.json()
 
     if (response.status !== 200) {

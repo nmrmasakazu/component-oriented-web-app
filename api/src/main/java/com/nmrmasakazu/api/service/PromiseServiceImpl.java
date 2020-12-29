@@ -87,8 +87,6 @@ public class PromiseServiceImpl implements PromiseService {
         updatePromise.setActivity_3_tr(promise.getActivity_3_tr());
         updatePromise.setComment_tr(promise.getComment_tr());
         updatePromise.setUpdate_time(new Date());
-        updatePromise.setFmaPoint(promise.getFmaPoint());
-        updatePromise.setFmaPath(promise.getFmaPath());
         promiseRepository.save(updatePromise);
     }
 
@@ -112,6 +110,16 @@ public class PromiseServiceImpl implements PromiseService {
         updatePromise.setActivity_tr_time(promise.getActivity_tr_time());
         updatePromise.setUpdate_time_user(new Date());
         promiseRepository.save(updatePromise);
+    }
+
+    @Override
+    public void createPromises(User user) {
+        for (int loop = 0; loop < 3; loop++){
+            for (int i = 0; i < 24; i++) {
+                Promise promise = new Promise(i+1+loop*24, user.getId());
+                savePromise(promise);
+            }
+        }
     }
 }
 

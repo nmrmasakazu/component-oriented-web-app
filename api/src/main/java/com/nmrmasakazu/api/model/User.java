@@ -38,7 +38,7 @@ public class User {
     List<Role> roles;
 
     @OneToMany(mappedBy = "user")
-    private List<Promise> primiseList;
+    private List<Promise> promiseList;
 
     @OneToMany(mappedBy = "user")
     private List<UserItemCh> userItemChList;
@@ -87,25 +87,32 @@ public class User {
     }
 
     private List<Promise> getPromiseList() {
-        return primiseList;
-    }
-    // 循環参照の回避 https://qiita.com/frost_star/items/855e7fb52dca9de7566e
-    public List<Promise> acquirePromiseList() {
-        return getPromiseList();
+        return promiseList;
     }
 
     private List<UserItemCh> getUserItemChList() {
         return userItemChList;
     }
-    public List<UserItemCh> acquireUserItemChList() {
-        return getUserItemChList();
-    }
 
     private List<UserItemTr> getUserItemTrList() {
         return userItemTrList;
     }
+
+    // カスタマイズ
+    // 循環参照の回避 https://qiita.com/frost_star/items/855e7fb52dca9de7566e
+    // getXXXはprivateにしましょう
+    public List<Promise> acquirePromiseList() {
+        List<Promise> promises = getPromiseList();
+        for (int i=0; i < promises.size(); i++) {
+            promises.get(i).getUser().setPassword(null);
+        }
+        return promises;
+    }
     public List<UserItemTr> acquireUserItemTrList() {
         return getUserItemTrList();
+    }
+    public List<UserItemCh> acquireUserItemChList() {
+        return getUserItemChList();
     }
 
 }

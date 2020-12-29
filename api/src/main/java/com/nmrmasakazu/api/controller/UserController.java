@@ -4,6 +4,7 @@ import com.nmrmasakazu.api.dto.TokenDTO;
 import com.nmrmasakazu.api.dto.UserDataDTO;
 import com.nmrmasakazu.api.dto.UserResponseDTO;
 import com.nmrmasakazu.api.model.User;
+import com.nmrmasakazu.api.service.PromiseService;
 import com.nmrmasakazu.api.service.UserService;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private PromiseService promiseService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @PostMapping("/signin")
@@ -38,8 +42,11 @@ public class UserController {
 
     @PostMapping("/signup")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public TokenDTO signup(@RequestBody UserDataDTO user) {
-        return userService.signup(modelMapper.map(user, User.class));
+    public TokenDTO signup(@RequestBody UserDataDTO userDTO) {
+        TokenDTO tokenDTO = userService.signup(modelMapper.map(userDTO, User.class));
+        User user = userService.search(userDTO.getUsername());
+        promiseService.createPromises(user);
+        return tokenDTO;
     }
 
     @DeleteMapping(value = "/{username}")

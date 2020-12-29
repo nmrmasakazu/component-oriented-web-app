@@ -14,9 +14,10 @@ itemRouter.get('/itemch', async (req, res) => {
         }
     }
     const response = await fetch(`http://${host}:${port}/api/item/itemch`, options)
-    .catch( _ => {
-        return res.status(404).send({message: apiNotFound})
-    })
+    if (response.status.toString()[0] === '5') {
+        return res.status(response.status).send({ message: response.statusText })
+    }
+
     const json = await response.json()
     
     if (response.status !== 200) {
@@ -35,9 +36,10 @@ itemRouter.post('/additemch', async (req, res) => {
         }
     }
     const response = await fetch(`http://${host}:${port}/api/item/additemch`, options)
-    .catch( _ => {
-        return res.status(404).send({message: apiNotFound})
-    })
+    if (response.status.toString()[0] === '5') {
+        return res.status(response.status).send({ message: response.statusText })
+    }
+
     const json = await response.json()
     
     if (response.status !== 200) {
@@ -55,9 +57,10 @@ itemRouter.delete('/removeitemch/:id', async (req, res) => {
         }
     }
     const response = await fetch(`http://${host}:${port}/api/item/removeitemch/${req.params.id}`, options)
-    .catch( _ => {
-        return res.status(404).send({message: apiNotFound})
-    })
+    if (response.status.toString()[0] === '5') {
+        return res.status(response.status).send({ message: response.statusText })
+    }
+
     const json = await response.json()
 
     if (response.status !== 200) {
@@ -76,9 +79,10 @@ itemRouter.get('/itemtr', async (req, res) => {
         }
     }
     const response = await fetch(`http://${host}:${port}/api/item/itemtr`, options)
-    .catch( _ => {
-        return res.status(404).send({message: apiNotFound})
-    })
+    if (response.status.toString()[0] === '5') {
+        return res.status(response.status).send({ message: response.statusText })
+    }
+
     const json = await response.json()
 
     if (response.status !== 200) {
@@ -97,9 +101,10 @@ itemRouter.post('/additemtr', async (req, res) => {
         }
     }
     const response = await fetch(`http://${host}:${port}/api/item/additemtr`, options)
-    .catch( _ => {
-        return res.status(404).send({message: apiNotFound})
-    })
+    if (response.status.toString()[0] === '5') {
+        return res.status(response.status).send({ message: response.statusText })
+    }
+
     const json = await response.json()
     if (response.status !== 200) {
         return res.status(404).send({message: json.message})
@@ -116,9 +121,10 @@ itemRouter.delete('/removeitemtr/:id', async (req, res) => {
         }
     }
     const response = await fetch(`http://${host}:${port}/api/item/removeitemtr/${req.params.id}`, options)
-    .catch( _ => {
-        return res.status(404).send({message: apiNotFound})
-    })
+    if (response.status.toString()[0] === '5') {
+        return res.status(response.status).send({ message: response.statusText })
+    }
+
     const json = await response.json()
 
     if (response.status !== 200) {

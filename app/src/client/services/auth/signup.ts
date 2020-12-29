@@ -10,7 +10,7 @@ export const COOKIES = {
 export async function signup(body: User): Promise<ResponseResult> {
 
     try {
-        axios.post(`http://${host}:${bffPort}/bff/signup`, body)
+        await axios.post(`http://${host}:${bffPort}/bff/signup`, body)
         const responseResult: ResponseResult = {
             success: true,
             message: ''
