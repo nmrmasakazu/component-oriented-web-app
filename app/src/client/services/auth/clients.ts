@@ -1,6 +1,9 @@
 import axios, { AxiosError } from 'axios'
 import { ResponseResult } from '../../../types/ResponseResult'
 import { host, bffPort } from '../../../const'
+import Cookies from 'js-cookie'
+import { COOKIES } from "../auth/login"
+import { AuthToken } from "../auth/authToken"
 
 export async function getClients(): Promise<ResponseResult> {
     try {
@@ -18,4 +21,10 @@ export async function getClients(): Promise<ResponseResult> {
         }
         return responseResult
     }
+}
+
+export function whoami(): string {
+    const token = Cookies.get(COOKIES.authToken)
+    const auth = new AuthToken(token)
+    return auth.decodedToken.sub
 }

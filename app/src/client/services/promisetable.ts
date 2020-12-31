@@ -56,3 +56,21 @@ export async function updatePromiseDetail(body: any): Promise<ResponseResult> {
         return responseResult
     }
 }
+
+export async function getPromisesClient(): Promise<ResponseResult> {
+    try {
+        const response = await axios.get(`http://${host}:${bffPort}/bff/promisetableclient`)
+        const responseResult: ResponseResult = {
+            success: true,
+            data: response.data
+        }
+        return responseResult
+    } catch (error) {
+        const e: AxiosError = error
+        const responseResult: ResponseResult = {
+            success: false,
+            message: e.response.data.message
+        }
+        return responseResult
+    }
+}

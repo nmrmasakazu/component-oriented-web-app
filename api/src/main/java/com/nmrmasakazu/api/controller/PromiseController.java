@@ -2,6 +2,7 @@ package com.nmrmasakazu.api.controller;
 
 import com.nmrmasakazu.api.domain.Promise;
 import com.nmrmasakazu.api.exception.CustomException;
+import com.nmrmasakazu.api.model.Role;
 import com.nmrmasakazu.api.model.User;
 import com.nmrmasakazu.api.service.PromiseService;
 import com.nmrmasakazu.api.service.UserService;
@@ -39,7 +40,7 @@ public class PromiseController {
     }
 
     @GetMapping("promisedetail/{username}/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
     public Promise promisedetail(@PathVariable("username") String username, @PathVariable("id") int id, Principal principal) {
         Promise promise = promiseService.findById(id);
         promise.getUser().setPassword(null);
@@ -49,7 +50,15 @@ public class PromiseController {
         if (!promise.getUser().getUsername().equals(username)) {
             throw new CustomException("ユーザ名と約束表が対応していません", HttpStatus.UNPROCESSABLE_ENTITY);
         }
-        return promise;
+
+        String loggedName = principal.getName();
+        User loggedUser = userService.search(loggedName);
+        if (loggedUser.getRoles().contains(Role.ROLE_ADMIN)) {
+            return promise;
+        } else if (promise.getUser().getUsername().equals(loggedName)) {
+            return promise;
+        }
+        throw new CustomException("アクセスができません", HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @PostMapping("updatepromise")
@@ -57,6 +66,14 @@ public class PromiseController {
     public Promise updatepromise(@RequestBody Promise promise) {
         promiseService.saveFromAuth(promise);
         return promise;
+    }
+
+    @GetMapping("promisetableclient")
+    @PreAuthorize("hasRole('ROLE_CLIENT')")
+    public List<Promise> promisetableclient(Principal principal) {
+        String loggedName = principal.getName();
+        User loggedUser = userService.search(loggedName);
+        return loggedUser.acquirePromiseList();
     }
 
 //    @GetMapping("promisedetail/client/{id}")

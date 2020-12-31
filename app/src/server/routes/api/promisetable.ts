@@ -70,4 +70,25 @@ promiseTableRouter.post('/updatepromise', async (req, res) => {
     return res.status(200).send(json)
 })
 
+promiseTableRouter.get('/promisetableclient', async (req, res) => {
+    const options = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${req.cookies.authToken}`,
+            'Content-Type': 'application/json'
+        }
+    }
+    const response = await fetch(`http://${host}:${port}/api/promise/promisetableclient/`, options)
+    if (response.status.toString()[0] === '5') {
+        return res.status(response.status).send({ message: response.statusText })
+    }
+
+    const json = await response.json()
+    
+    if (response.status !== 200) {
+        return res.status(response.status).send({ message: json.message})
+    }
+    return res.status(200).json(json)
+})
+
 export default promiseTableRouter
