@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,22 +38,9 @@ public class AdminController {
         return promises;
     }
 
-    @GetMapping("editpromise/{id}")
-    public Promise editpromise(@PathVariable("id") int id) {
-
-        Promise promise = promiseService.findById(id);
-        List<String> userItemChListStr = userItemService.findItemStrChByUserId(promise.getUser().getId());
-        List<String> userItemTrListStr = userItemService.findItemStrTrByUserId(promise.getUser().getId());
-
-        // Add previous promise info
-        Promise prePromise = promiseService.findById(id-1);
-
-        return prePromise;
-    }
-
     @PostMapping("postpromise/{id}")
-    public String postpromise(@PathVariable("id") int id, Promise promise) {
+    public Promise postpromise(@PathVariable("id") int id, @RequestBody Promise promise) {
         promiseService.saveFromAuth(promise);
-        return "OK";
+        return promise;
     }
 }

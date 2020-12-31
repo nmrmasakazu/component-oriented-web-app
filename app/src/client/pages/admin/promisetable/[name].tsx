@@ -27,8 +27,8 @@ const PromiseTablePage = () => {
             <div className="d-flex flex-column" id="content-wrapper">
                 <div id="content">
                     <div className="container-fluid">
-                        <h3 className="text-dark mb-4">XXXさんの約束表</h3>
-                        <div className="card shadow">
+                        <h3 className="text-dark mb-4">{name}さんの約束表</h3>
+                        {/* <div className="card shadow">
                             <div className="card-header py-3">
                                 <p className="text-primary m-0 font-weight-bold">一括ダウンロード</p>
                             </div>
@@ -54,7 +54,7 @@ const PromiseTablePage = () => {
                                     </table>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="card shadow">
                             <div className="card-header py-3">
                                 <p className="text-primary m-0 font-weight-bold">約束表</p>
@@ -75,8 +75,8 @@ const PromiseTablePage = () => {
                                             {promises.map((promise, index) =>
                                                 <tr>
                                                     <th>{promise.round}日目</th>
-                                                    <th><button className="btn" type="button"><a href={`/detail/${promise.id}`}>詳細の表示</a></button></th>
-                                                    <th><button className="btn" type="button"><a href={`/admin/editpromise/${promise.id}`}>コメント等の編集</a></button></th>
+                                                    <th><button className="btn" type="button"><a href={`/detail/${name}/${promise.id}`}>詳細の表示</a></button></th>
+                                                    <th><button className="btn" type="button"><a href={`/admin/editpromise/${name}/${promise.id}`}>コメント等の編集</a></button></th>
                                                     <th>{promise.update_time}</th>
                                                     <th>{promise.update_time_user}</th>
                                                 </tr>

@@ -20,12 +20,12 @@ promiseTableRouter.get('/promisetable/:username', async (req, res) => {
     const json = await response.json()
     
     if (response.status !== 200) {
-        return json.message
+        return res.status(response.status).send({ message: json.message})
     }
     return res.status(200).json(json)
 })
 
-promiseTableRouter.get('/promisedetail/:id', async (req, res) => {
+promiseTableRouter.get('/promisedetail/:name/:id', async (req, res) => {
     const options = {
         method: 'GET',
         headers: {
@@ -33,7 +33,7 @@ promiseTableRouter.get('/promisedetail/:id', async (req, res) => {
             'Content-Type': 'application/json'
         }
     }
-    const response = await fetch(`http://${host}:${port}/api/promise/promisedetail/${req.params.id}`, options)
+    const response = await fetch(`http://${host}:${port}/api/promise/promisedetail/${req.params.name}/${req.params.id}`, options)
     if (response.status.toString()[0] === '5') {
         return res.status(response.status).send({ message: response.statusText })
     }
@@ -41,51 +41,33 @@ promiseTableRouter.get('/promisedetail/:id', async (req, res) => {
     const json = await response.json()
     
     if (response.status !== 200) {
-        return json.message
+        return res.status(response.status).send({ message: json.message})
     }
     return res.status(200).json(json)
 })
 
-// userItemRouter.post('/adduseritem/:type', async (req, res) => {
-//     const options = {
-//         method: 'POST',
-//         body: JSON.stringify(req.body),
-//         headers: {
-//             'Authorization': `Bearer ${req.cookies.authToken}`,
-//             'Content-Type': 'application/json'
-//         }
-//     }
-//     const response = await fetch(`http://${host}:${port}/api/useritem/adduseritem${req.params.type}`, options)
-//     .catch( _ => {
-//         return res.status(404).send({message: apiNotFound})
-//     })
-//     const json = await response.json()
-    
-//     if (response.status !== 200) {
-//         return res.status(404).send({message: json.message})
-//     }
-//     res.status(200).json(json)
-// })
+promiseTableRouter.post('/updatepromise', async (req, res) => {
 
-// userItemRouter.post('/removeuseritem/:type', async (req, res) => {
-//     const options = {
-//         method: 'POST',
-//         body: JSON.stringify(req.body),
-//         headers: {
-//             'Authorization': `Bearer ${req.cookies.authToken}`,
-//             'Content-Type': 'application/json'
-//         }
-//     }
-//     const response = await fetch(`http://${host}:${port}/api/useritem/removeuseritem${req.params.type}`, options)
-//     .catch( _ => {
-//         return res.status(404).send({message: apiNotFound})
-//     })
-//     const json = await response.json()
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(req.body),
+        headers: {
+            'Authorization': `Bearer ${req.cookies.authToken}`,
+            'Content-Type': 'application/json'
+        }
+    }
+    const response = await fetch(`http://${host}:${port}/api/promise/updatepromise`, options)
+    if (response.status.toString()[0] === '5') {
+        return res.status(response.status).send({ message: response.statusText })
+    }
 
-//     if (response.status !== 200) {
-//         return res.status(404).send({message: json.message})
-//     }
-//     res.status(200).json(json)
-// })
+    const json = await response.json()
+
+    if (response.status !== 200) {
+        return res.status(response.status).send({ message: json.message })
+    }
+
+    return res.status(200).send(json)
+})
 
 export default promiseTableRouter

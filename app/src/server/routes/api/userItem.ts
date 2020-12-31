@@ -1,7 +1,7 @@
 import Express from 'express'
 import fetch from 'cross-fetch'
 import { host, port, apiNotFound } from '../../../const'
-import { UserItem } from '../../../types/Item'
+import { UserItem, UserItemAll } from '../../../types/ItemType'
 
 const userItemRouter = Express.Router()
 
@@ -80,6 +80,39 @@ userItemRouter.post('/removeuseritem/:type', async (req, res) => {
         return res.status(404).send({message: json.message})
     }
     res.status(200).json(json)
+})
+
+userItemRouter.get('/useritem/:username', async (req, res) => {
+    const options = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${req.cookies.authToken}`,
+            'Content-Type': 'application/json'
+        }
+    }
+    const responseUseritemCh = await fetch(`http://${host}:${port}/api/useritem/useritemch/${req.params.username}`, options)
+    if (responseUseritemCh.status.toString()[0] === '5') {
+        return res.status(responseUseritemCh.status).send({ message: responseUseritemCh.statusText })
+    }
+
+    const jsonUserItemCh = await responseUseritemCh.json()
+
+    const responseUseritemTr = await fetch(`http://${host}:${port}/api/useritem/useritemtr/${req.params.username}`, options)
+    if (responseUseritemTr.status.toString()[0] === '5') {
+        return res.status(responseUseritemTr.status).send({ message: responseUseritemTr.statusText })
+    }
+
+    const jsonUserItemTr = await responseUseritemTr.json()
+
+    const userItem: UserItemAll = {
+        itemch: jsonUserItemCh,
+        itemtr: jsonUserItemTr
+    }
+    
+    if (responseUseritemCh.status !== 200) {
+        return jsonUserItemCh.message
+    }
+    return res.status(200).json(userItem)
 })
 
 export default userItemRouter

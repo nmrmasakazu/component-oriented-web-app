@@ -1,44 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Nav from '../../components/nav'
-import PromiseCard from '../../components/promiseCard'
-import { getPromiseDetail } from '../../services/promisetable'
+import Nav from '../../../components/nav'
+import PromiseCard from '../../../components/promiseCard'
+import { getPromiseDetail } from '../../../services/promisetable'
+import { initialPromiseTable } from '../../../../types/PromiseTable'
 
 const Detail = () => {
 
     const router = useRouter()
     const id = router.query.id as string
+    const name = router.query.name as string
 
-    const [promise, setPromise] = useState({
-        round: '',
-        activity_1_ch: '',
-        activity_2_ch: '',
-        activity_3_ch: '',
-        activity_4_ch: '',
-        point_1_ch: '',
-        point_2_ch: '',
-        point_3_ch: '',
-        point_4_ch: '',
-        activity_1_ch_user: '',
-        activity_2_ch_user: '',
-        activity_3_ch_user: '',
-        activity_4_ch_user: '',
-        comment_ch: '',
-        activity_1_tr: '',
-        activity_2_tr: '',
-        activity_3_tr: '',
-        point_1_tr: '',
-        point_2_tr: '',
-        point_3_tr: '',
-        activity_1_tr_user: '',
-        activity_2_tr_user: '',
-        activity_3_tr_user: '',
-        comment_tr: '',
-        activity_tr_time: ''
-    })
+    const [promise, setPromise] = useState(initialPromiseTable)
 
     const fetchData = async () => {
-        const result = await getPromiseDetail(Number(id))
+        const result = await getPromiseDetail(name, Number(id))
         const promise = result.data
         setPromise(promise)
     }

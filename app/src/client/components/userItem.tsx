@@ -1,6 +1,6 @@
 import React from 'react'
 import Nav from './nav'
-import { Item } from '../../types/Item'
+import { Item } from '../../types/ItemType'
 
 const UserItemComponent = (props: any) => {
     return <>
@@ -29,7 +29,6 @@ const UserItemComponent = (props: any) => {
                                                     <td>{item.id} - {item.item}</td>
                                                     <td><button className="btn" onClick={() => props.handleRemoveUserItem(item)}>削除</button></td>
                                                 </tr>
-
                                             )}
                                         </tbody>
                                     </table>
