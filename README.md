@@ -1,4 +1,6 @@
-# component-oriented-web-app
+# tele-reha-web-app
+
+Under construction...
 
 ## Architecture
 
@@ -32,12 +34,8 @@ docker exec -it <CONTAINER_NAME> bash
 
 ## Access
 
-- アクセス制限なし
-  - http://localhost/
 - ログイン
   - http://localhost/login
-- アクセス制限あり
-  - http://localhost/secret
 
 ## References
 

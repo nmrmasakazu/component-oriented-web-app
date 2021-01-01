@@ -1,8 +1,8 @@
 import React from 'react'
-import { AuthProps, privateRoute } from '../components/PrivateRoute'
+import { AuthProps, privateRoute } from '../components/privateRoute'
 import Cookie from 'js-cookie'
 import Router from 'next/router'
-import { COOKIES } from '../services/login'
+import { COOKIES } from '../services/auth/login'
 import { Links } from '../components/links'
 
 type Props = AuthProps & {

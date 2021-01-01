@@ -1,8 +1,7 @@
 spring:
   datasource:
-#    url: jdbc:h2:mem:test_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-#    url: jdbc:mysql://localhost:3306/api_db?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
-    url: jdbc:mysql://mysql:3306/api_db?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/api_db?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+#    url: jdbc:mysql://mysql:3306/api_db?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: root
   tomcat:
@@ -11,11 +10,8 @@ spring:
     max-idle: 20
     min-idle: 15
   jpa:
-    hibernate:
-      ddl-auto: create
     properties:
       hibernate:
-#        dialect: org.hibernate.dialect.H2Dialect
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
         id:
@@ -23,9 +19,11 @@ spring:
 
 server:
   port: 8080
+  servlet:
+    context-path: /api
 
 security:
   jwt:
     token:
       secret-key: secret-key
-      expire-length: 300000 # 5 minutes duration by default: 5 minutes * 60 seconds * 1000 miliseconds
+      expire-length: 3600000 # 60 minutes duration by default: 12 * 5 minutes * 60 seconds * 1000 miliseconds
