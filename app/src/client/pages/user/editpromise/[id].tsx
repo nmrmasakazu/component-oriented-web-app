@@ -1,8 +1,83 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Nav from '../../../components/nav'
 import { privateRoute } from '../../../components/privateRoute'
+import { initialPromiseTable } from '../../../../types/PromiseTable'
+import { getPromiseDetail, updatePromiseDetailClient } from '../../../services/promisetable'
+import { useRouter } from 'next/router'
+import { whoami } from '../../../services/auth/clients'
+import EditPromiseByClient from '../../../components/editPromiseByClient'
+import { ResponseResult } from '../../../../types/ResponseResult'
 
 const EditPromisePage = () => {
+
+    const [promiseToday, setPromiseToday] = useState(initialPromiseTable)
+
+
+    const router = useRouter()
+    const id = router.query.id as string
+    const name = whoami()
+
+    const fetchData = async () => {
+        const resultToday = await getPromiseDetail(name, Number(id))
+        if (resultToday.success) {
+            setPromiseToday(resultToday.data)
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    const handleInputChange = (e: React.ChangeEvent<any>) => {
+        e.persist()
+        setPromiseToday({
+            ...promiseToday,
+            [e.target.name]: e.target.value,
+        })
+    }
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault()
+        // setError('')
+        const responseResult: ResponseResult = await updatePromiseDetailClient(promiseToday)
+        if (responseResult.success) {
+            alert(`【登録完了】 約束表: ${promiseToday.round}日目`)
+            fetchData()
+        } else {
+            // setError(responseResult.message)
+        }
+    }
+
+    const chProps = {
+        title: '挑戦項目',
+        type: 'ch',
+        handleInputChange: handleInputChange,
+        point_1: promiseToday.point_1_ch,
+        point_2: promiseToday.point_2_ch,
+        point_3: promiseToday.point_3_ch,
+        point_4: promiseToday.point_4_ch,
+        activity_1_comment: promiseToday.activity_1_ch_user,
+        activity_2_comment: promiseToday.activity_2_ch_user,
+        activity_3_comment: promiseToday.activity_3_ch_user,
+        activity_4_comment: promiseToday.activity_4_ch_user,
+        points: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        comments: ['簡単', '普通', '難しい']
+    }
+
+    const trProps = {
+        title: '自主トレ項目',
+        type: 'tr',
+        handleInputChange: handleInputChange,
+        point_1: promiseToday.point_1_tr,
+        point_2: promiseToday.point_2_tr,
+        point_3: promiseToday.point_3_tr,
+        activity_1_comment: promiseToday.activity_1_tr_user,
+        activity_2_comment: promiseToday.activity_2_tr_user,
+        activity_3_comment: promiseToday.activity_3_tr_user,
+        points: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        comments: ['簡単', '普通', '難しい'],
+        activity_tr_time: promiseToday.activity_tr_time
+    }
 
     return <>
         <div id="wrapper">
@@ -11,200 +86,17 @@ const EditPromisePage = () => {
                 <div id="content">
                     <div className="container-fluid">
                         <h3 className="text-dark mb-4">約束表の編集</h3>
-                        <h6 className="text-danger mb-4">約束表の編集</h6>
+                        {/* <h6 className="text-danger mb-4">約束表の編集</h6> */}
                         <div className="card shadow">
                             <div className="card-header py-3">
                                 <p className="text-primary m-0 font-weight-bold">約束表の編集</p>
                             </div>
                             <div className="card-body">
-                                <form method="post">
-                                    <div className="form-group">
-                                        <h5>挑戦項目の自己評価とコメント</h5>
-                                        <div className="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                            <table className="table dataTable my-0" id="dataTable">
-                                                <thead>
-                                                    <tr>
-                                                        <th>内容</th>
-                                                        <th>ユーザーの自己評価</th>
-                                                        <th>ユーザーのコメント</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>未記入</td>
-                                                        <td>
-                                                            <select className="form-control" name="point_1_ch">
-                                                                <optgroup label="点数">
-                                                                    <option value="-1" selected={true}>未選択</option>
-                                                                    <option value="1">1</option>
-                                                                </optgroup>
-                                                            </select></td>
-                                                        <td>
-                                                            <select className="form-control" name="activity_1_ch_user">
-                                                                <optgroup label="コメント">
-                                                                    <option value="未選択" selected={true}>未選択</option>
-                                                                    <option value="難しい">難しい</option>
-                                                                </optgroup>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>未記入</td>
-                                                        <td>
-                                                            <select className="form-control" name="point_1_ch">
-                                                                <optgroup label="点数">
-                                                                    <option value="-1" selected={true}>未選択</option>
-                                                                    <option value="1">1</option>
-                                                                </optgroup>
-                                                            </select></td>
-                                                        <td>
-                                                            <select className="form-control" name="activity_1_ch_user">
-                                                                <optgroup label="コメント">
-                                                                    <option value="未選択" selected={true}>未選択</option>
-                                                                    <option value="難しい">難しい</option>
-                                                                </optgroup>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-
-                                                        <td>未記入</td>
-                                                        <td>
-                                                            <select className="form-control" name="point_1_ch">
-                                                                <optgroup label="点数">
-                                                                    <option value="-1" selected={true}>未選択</option>
-                                                                    <option value="1">1</option>
-                                                                </optgroup>
-                                                            </select></td>
-                                                        <td>
-                                                            <select className="form-control" name="activity_1_ch_user">
-                                                                <optgroup label="コメント">
-                                                                    <option value="未選択" selected={true}>未選択</option>
-                                                                    <option value="難しい">難しい</option>
-                                                                </optgroup>
-                                                            </select>
-                                                        </td>
-
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>未記入</td>
-                                                        <td>
-                                                            <select className="form-control" name="point_1_ch">
-                                                                <optgroup label="点数">
-                                                                    <option value="-1" selected={true}>未選択</option>
-                                                                    <option value="1">1</option>
-                                                                </optgroup>
-                                                            </select></td>
-                                                        <td>
-                                                            <select className="form-control" name="activity_1_ch_user">
-                                                                <optgroup label="コメント">
-                                                                    <option value="未選択" selected={true}>未選択</option>
-                                                                    <option value="難しい">難しい</option>
-                                                                </optgroup>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr></tr>
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr></tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <h5>自主トレ項目の自己評価とコメント</h5>
-                                        <div className="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                            <table className="table dataTable my-0" id="dataTable">
-                                                <thead>
-                                                    <tr>
-                                                        <th>内容</th>
-                                                        <th>ユーザーの自己評価</th>
-                                                        <th>ユーザーのコメント</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>未記入</td>
-                                                        <td>
-                                                            <select className="form-control" name="point_1_ch">
-                                                                <optgroup label="点数">
-                                                                    <option value="-1" selected={true}>未選択</option>
-                                                                    <option value="1">1</option>
-                                                                </optgroup>
-                                                            </select></td>
-                                                        <td>
-                                                            <select className="form-control" name="activity_1_ch_user">
-                                                                <optgroup label="コメント">
-                                                                    <option value="未選択" selected={true}>未選択</option>
-                                                                    <option value="難しい">難しい</option>
-                                                                </optgroup>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>未記入</td>
-                                                        <td>
-                                                            <select className="form-control" name="point_1_ch">
-                                                                <optgroup label="点数">
-                                                                    <option value="-1" selected={true}>未選択</option>
-                                                                    <option value="1">1</option>
-                                                                </optgroup>
-                                                            </select></td>
-                                                        <td>
-                                                            <select className="form-control" name="activity_1_ch_user">
-                                                                <optgroup label="コメント">
-                                                                    <option value="未選択" selected={true}>未選択</option>
-                                                                    <option value="難しい">難しい</option>
-                                                                </optgroup>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>未記入</td>
-                                                        <td>
-                                                            <select className="form-control" name="point_1_ch">
-                                                                <optgroup label="点数">
-                                                                    <option value="-1" selected={true}>未選択</option>
-                                                                    <option value="1">1</option>
-                                                                </optgroup>
-                                                            </select></td>
-                                                        <td>
-                                                            <select className="form-control" name="activity_1_ch_user">
-                                                                <optgroup label="コメント">
-                                                                    <option value="未選択" selected={true}>未選択</option>
-                                                                    <option value="難しい">難しい</option>
-                                                                </optgroup>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr></tr>
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr></tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                        <div className="table-responsive table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
-                                            <table className="table dataTable my-0" id="dataTable">
-                                                <thead>
-                                                    <tr>
-                                                        <th>合計時間（分）</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><input className="form-control" type="text" name="activity_tr_time" /></td>
-                                                    </tr>
-                                                    <tr></tr>
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr></tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div><button className="btn" type="submit">完了</button>
+                                <form method="post" onSubmit={handleSubmit}>
+                                    <EditPromiseByClient {...chProps} />
+                                    <br />
+                                    <EditPromiseByClient {...trProps} />
+                                    <button className="btn" type="submit">完了</button>
                                 </form>
                             </div>
                         </div>
@@ -226,9 +118,6 @@ const EditPromisePage = () => {
         }
         h6 {
             margin: 20px;
-        }
-        textarea {
-            height: 150px;
         }
         button {
             margin: 0 0 0 20px;

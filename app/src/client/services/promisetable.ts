@@ -74,3 +74,22 @@ export async function getPromisesClient(): Promise<ResponseResult> {
         return responseResult
     }
 }
+
+export async function updatePromiseDetailClient(body: any): Promise<ResponseResult> {
+
+    try {
+        await axios.post(`http://${host}:${bffPort}/bff/updatepromiseclient`, body)
+        const responseResult: ResponseResult = {
+            success: true,
+            message: ''
+        }
+        return responseResult
+    } catch (error) {
+        const e: AxiosError = error
+        const responseResult: ResponseResult = {
+            success: false,
+            message: e.response.data.message
+        }
+        return responseResult
+    }
+}

@@ -76,12 +76,11 @@ public class PromiseController {
         return loggedUser.acquirePromiseList();
     }
 
-//    @GetMapping("promisedetail/client/{id}")
-//    @PreAuthorize("hasRole('ROLE_CLIENT')")
-//    public Promise promisedetail(@PathVariable("id") int id, Principal principal) {
-//        String loggedName = principal.getName();
-//        System.out.println(name);
-//        return promiseService.findById(id);
-//    }
+    @PostMapping("updatepromiseclient")
+    @PreAuthorize("hasRole('ROLE_CLIENT')")
+    public Promise updatepromiseclient(@RequestBody Promise promise) {
+        promiseService.saveFromUser(promise);
+        return promise;
+    }
 
 }
