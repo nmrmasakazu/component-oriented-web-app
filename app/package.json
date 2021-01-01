@@ -2,9 +2,10 @@
     "name": "component-oriented-web-app",
     "version": "1.0.0",
     "author": "nmrmasakazu",
+    "license": "UNLICENSED",
     "private": true,
     "scripts": {
-        "dev": "NODE_ENV=dev ts-node src/server/app.ts",
+        "dev": "ts-node src/server/app.ts",
         "build:client": "next build src/client",
         "build:server": "tsc --project ./src/server/tsconfig.server.json",
         "build": "concurrently \"yarn build:server\" \"yarn build:client\"",
@@ -27,7 +28,8 @@
         "redux": "^4.0.1",
         "styled-components": "^4.2.0",
         "styled-jsx-plugin-sass": "^1.0.0",
-        "uuid": "^3.3.2"
+        "uuid": "^3.3.2",
+        "dotenv": "^8.2.0"
     },
     "devDependencies": {
         "@types/cookie-parser": "^1.4.2",
