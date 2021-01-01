@@ -1,6 +1,6 @@
 package com.nmrmasakazu.api.service.item;
 
-import com.nmrmasakazu.api.model.User;
+import com.nmrmasakazu.api.auth.model.User;
 import com.nmrmasakazu.api.domain.item.ItemCh;
 import com.nmrmasakazu.api.domain.item.ItemTr;
 import com.nmrmasakazu.api.domain.item.UserItemCh;
@@ -9,7 +9,7 @@ import com.nmrmasakazu.api.repository.item.ItemChRepository;
 import com.nmrmasakazu.api.repository.item.ItemTrRepository;
 import com.nmrmasakazu.api.repository.item.UserItemChRepository;
 import com.nmrmasakazu.api.repository.item.UserItemTrRepository;
-import com.nmrmasakazu.api.repository.UserRepository;
+import com.nmrmasakazu.api.auth.repository.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;

@@ -1,11 +1,11 @@
-package com.nmrmasakazu.api.repository;
+package com.nmrmasakazu.api.auth.repository;
 
 import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.nmrmasakazu.api.model.User;
+import com.nmrmasakazu.api.auth.model.User;
 import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<User, Integer> {

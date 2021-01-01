@@ -1,7 +1,7 @@
 package com.nmrmasakazu.api.controller;
 
 import com.nmrmasakazu.api.dto.UserItemDTO;
-import com.nmrmasakazu.api.model.User;
+import com.nmrmasakazu.api.auth.model.User;
 
 import com.nmrmasakazu.api.domain.item.ItemCh;
 import com.nmrmasakazu.api.domain.item.ItemTr;
@@ -10,7 +10,7 @@ import com.nmrmasakazu.api.domain.item.UserItemTr;
 
 import com.nmrmasakazu.api.service.item.ItemService;
 import com.nmrmasakazu.api.service.item.UserItemService;
-import com.nmrmasakazu.api.service.UserService;
+import com.nmrmasakazu.api.auth.service.UserService;
 
 import  com.nmrmasakazu.api.service.PromiseService;
 

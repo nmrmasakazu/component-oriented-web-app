@@ -1,4 +1,4 @@
-package com.nmrmasakazu.api.security;
+package com.nmrmasakazu.api.auth.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.nmrmasakazu.api.model.User;
-import com.nmrmasakazu.api.repository.UserRepository;
+import com.nmrmasakazu.api.auth.model.User;
+import com.nmrmasakazu.api.auth.repository.UserRepository;
 
 /**
  * ユーザ情報に関係する情報を扱うクラス

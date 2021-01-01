@@ -1,11 +1,11 @@
-package com.nmrmasakazu.api.controller;
+package com.nmrmasakazu.api.auth.controller;
 
-import com.nmrmasakazu.api.dto.TokenDTO;
-import com.nmrmasakazu.api.dto.UserDataDTO;
-import com.nmrmasakazu.api.dto.UserResponseDTO;
-import com.nmrmasakazu.api.model.User;
+import com.nmrmasakazu.api.auth.dto.TokenDTO;
+import com.nmrmasakazu.api.auth.dto.UserDataDTO;
+import com.nmrmasakazu.api.auth.dto.UserResponseDTO;
+import com.nmrmasakazu.api.auth.model.User;
 import com.nmrmasakazu.api.service.PromiseService;
-import com.nmrmasakazu.api.service.UserService;
+import com.nmrmasakazu.api.auth.service.UserService;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 

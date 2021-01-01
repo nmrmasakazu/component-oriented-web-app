@@ -1,4 +1,4 @@
-package com.nmrmasakazu.api.model;
+package com.nmrmasakazu.api.auth.model;
 
 import com.nmrmasakazu.api.domain.Promise;
 import com.nmrmasakazu.api.domain.item.UserItemCh;

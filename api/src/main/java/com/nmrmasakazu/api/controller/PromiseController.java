@@ -2,10 +2,10 @@ package com.nmrmasakazu.api.controller;
 
 import com.nmrmasakazu.api.domain.Promise;
 import com.nmrmasakazu.api.exception.CustomException;
-import com.nmrmasakazu.api.model.Role;
-import com.nmrmasakazu.api.model.User;
+import com.nmrmasakazu.api.auth.model.Role;
+import com.nmrmasakazu.api.auth.model.User;
 import com.nmrmasakazu.api.service.PromiseService;
-import com.nmrmasakazu.api.service.UserService;
+import com.nmrmasakazu.api.auth.service.UserService;
 
 import java.security.Principal;
 import java.util.List;

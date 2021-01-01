@@ -1,4 +1,4 @@
-package com.nmrmasakazu.api.security;
+package com.nmrmasakazu.api.auth.security;
 
 import java.io.IOException;
 

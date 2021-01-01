@@ -1,10 +1,10 @@
 package com.nmrmasakazu.api.service;
 
 import com.nmrmasakazu.api.domain.Promise;
-import com.nmrmasakazu.api.model.User;
+import com.nmrmasakazu.api.auth.model.User;
 import com.nmrmasakazu.api.repository.PromiseRepository;
-import com.nmrmasakazu.api.repository.UserRepository;
-import com.nmrmasakazu.api.model.Role;
+import com.nmrmasakazu.api.auth.repository.UserRepository;
+import com.nmrmasakazu.api.auth.model.Role;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

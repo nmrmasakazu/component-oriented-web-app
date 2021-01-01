@@ -1,4 +1,4 @@
-package com.nmrmasakazu.api.model;
+package com.nmrmasakazu.api.auth.model;
 
 import org.springframework.security.core.GrantedAuthority;
 

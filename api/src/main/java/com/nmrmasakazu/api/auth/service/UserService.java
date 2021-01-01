@@ -1,6 +1,6 @@
-package com.nmrmasakazu.api.service;
+package com.nmrmasakazu.api.auth.service;
 
-import com.nmrmasakazu.api.dto.TokenDTO;
+import com.nmrmasakazu.api.auth.dto.TokenDTO;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,9 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nmrmasakazu.api.exception.CustomException;
-import com.nmrmasakazu.api.model.User;
-import com.nmrmasakazu.api.repository.UserRepository;
-import com.nmrmasakazu.api.security.JwtTokenProvider;
+import com.nmrmasakazu.api.auth.model.User;
+import com.nmrmasakazu.api.auth.repository.UserRepository;
+import com.nmrmasakazu.api.auth.security.JwtTokenProvider;
 
 @Service
 public class UserService {

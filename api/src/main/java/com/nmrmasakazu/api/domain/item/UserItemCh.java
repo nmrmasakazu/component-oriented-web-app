@@ -1,6 +1,6 @@
 package com.nmrmasakazu.api.domain.item;
 
-import com.nmrmasakazu.api.model.User;
+import com.nmrmasakazu.api.auth.model.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

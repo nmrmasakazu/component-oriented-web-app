@@ -1,7 +1,6 @@
 package com.nmrmasakazu.api.domain;
 
-import com.nmrmasakazu.api.model.User;
-import java.text.SimpleDateFormat;
+import com.nmrmasakazu.api.auth.model.User;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;

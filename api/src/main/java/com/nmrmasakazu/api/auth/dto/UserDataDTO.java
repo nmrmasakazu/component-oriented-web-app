@@ -1,25 +1,20 @@
-package com.nmrmasakazu.api.dto;
+package com.nmrmasakazu.api.auth.dto;
 
-import com.nmrmasakazu.api.model.Role;
 import java.util.List;
 
-public class UserResponseDTO {
+import com.nmrmasakazu.api.auth.model.Role;
 
-    private Integer id;
+public class UserDataDTO {
 
     private String username;
 
     private String email;
 
+    private String plainPassword;
+
+    private String password;
+
     List<Role> roles;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -35,6 +30,22 @@ public class UserResponseDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPlainPassword() {
+        return password;
+    }
+
+    public void setPlainPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<Role> getRoles() {

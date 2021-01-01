@@ -1,4 +1,4 @@
-package com.nmrmasakazu.api.security;
+package com.nmrmasakazu.api.auth.security;
 
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

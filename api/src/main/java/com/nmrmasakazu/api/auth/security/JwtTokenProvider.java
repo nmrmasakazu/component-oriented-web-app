@@ -1,4 +1,4 @@
-package com.nmrmasakazu.api.security;
+package com.nmrmasakazu.api.auth.security;
 
 import java.util.Base64;
 import java.util.Date;
@@ -23,7 +23,7 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import com.nmrmasakazu.api.exception.CustomException;
-import com.nmrmasakazu.api.model.Role;
+import com.nmrmasakazu.api.auth.model.Role;
 
 /**
  * Jwtの認証

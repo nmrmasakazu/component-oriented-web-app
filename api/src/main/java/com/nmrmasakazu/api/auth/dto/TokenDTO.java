@@ -1,4 +1,4 @@
-package com.nmrmasakazu.api.dto;
+package com.nmrmasakazu.api.auth.dto;
 
 public class TokenDTO {
 
