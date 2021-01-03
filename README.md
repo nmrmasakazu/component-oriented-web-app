@@ -55,3 +55,5 @@ Thanks
   - https://github.com/murraco/spring-boot-jwt
 - MySQL
   - https://qiita.com/Manabu-man/items/58d0f98a15656ed65136
+- minio
+  - https://github.com/jjrom/minio-proxy/blob/master/container_root/etc/nginx/sites-available/default
