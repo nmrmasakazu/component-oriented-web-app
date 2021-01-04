@@ -48,17 +48,31 @@ services:
     #     networks:
     #         - app-net
 
+    storage-gateway:
+        build:
+            context: ./storage-gateway/
+        restart: always
+        expose: 
+            - "8090"
+        environment:
+            HOST: host.docker.internal
+        # depends_on:
+        #     - app
+        container_name: component-storage-gateway
+        networks:
+            - app-net
+
     minio:
         build:
             context: ./minio/
         restart: always
-        ports: 
-            - "9090:9000"
+        expose: 
+            - "9000"
         environment:
             MINIO_ACCESS_KEY: minio
             MINIO_SECRET_KEY: minio123
-        # depends_on:
-        #     - app
+        depends_on:
+            - storage-gateway
         command: server /data
         container_name: component-minio
         networks:

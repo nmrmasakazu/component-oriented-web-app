@@ -5,7 +5,7 @@ import cookie from 'cookie'
 import fetch from 'cross-fetch'
 
 const port = 8090
-var origin = 'http://localhost:9090'
+var origin = 'http://minio:9000'
 
 const blocked = (res: any) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' })
@@ -30,7 +30,7 @@ const requestHandler = async (req: any, res: any) => {
           'Content-Type': 'application/json'
         }
       }
-      const response = await fetch(`http://localhost:8080/api/users/me`, options)
+      const response = await fetch(`http://${process.env.HOST}:8080/api/users/me`, options)
       // console.log(await response.json())
       if (response.status !== 200) {
         blocked(res)
@@ -48,4 +48,4 @@ const requestHandler = async (req: any, res: any) => {
 const server = http.createServer()
 http.createServer(requestHandler).listen(port)
 
-console.log('listening http://localhost:' + port)
+console.log('listening http://storage-gateway:' + port)
