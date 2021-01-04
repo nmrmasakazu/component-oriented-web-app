@@ -13,7 +13,7 @@
                 "s3:ListBucket"
             ],
             "Resource": [
-                "arn:aws:s3:::static"
+                "arn:aws:s3:::imgs"
             ],
             "Condition": { 
                 "StringLike": { 
@@ -36,7 +36,7 @@
                 "s3:DeleteObject"
             ],
             "Resource": [
-                "arn:aws:s3:::static/*"
+                "arn:aws:s3:::imgs/*"
             ],
             "Condition": { 
                 "StringLike": { 
