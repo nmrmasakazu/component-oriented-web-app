@@ -17,8 +17,11 @@ Under construction...
 - Auth
   - Spring Security
   - JWT
+- Storage
+  - minio
 - Reverse proxy
   - Nginx
+  - Express (for bucket security)
 
 ## Setup
 
