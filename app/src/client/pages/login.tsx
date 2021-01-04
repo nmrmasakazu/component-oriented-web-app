@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { login } from '../services/auth/login'
-import { getImgs } from '../services/storage'
+import { getImgs, getPrivate } from '../services/storage'
 import { LoginInputs } from '../../types/LoginInputs'
 
 const LoginPage = () => {
@@ -10,7 +10,7 @@ const LoginPage = () => {
     password: '',
   }
   const [inputs, setInputs] = useState(initialValues)
-  const [storageUrls, setStorageUrls] = useState({kaikokaiUrl: '', nitechUrl: ''})
+  const [storageUrls, setStorageUrls] = useState({kaikokaiUrl: '', nitechUrl: '', privateUrl: ''})
   const [error, setError] = useState('')
 
   const handleSubmit = async (e: any) => {
@@ -30,10 +30,12 @@ const LoginPage = () => {
   const fetchStorage = async () => {
     const kaikokaiUrl = await getImgs('Kaikokai-logo.png')
     const nitechUrl = await getImgs('Nitech-logo.png')
+    const privateUrl = await getPrivate('sample.txt')
     setStorageUrls({
       ...storageUrls,
       kaikokaiUrl: kaikokaiUrl.data.url,
-      nitechUrl: nitechUrl.data.url
+      nitechUrl: nitechUrl.data.url,
+      privateUrl: privateUrl.data.url
     })
   }
 
@@ -60,6 +62,7 @@ const LoginPage = () => {
         <div className="form-group" id="center">
           <button className="btn">ログイン</button>
         </div>
+        <a href={storageUrls.privateUrl} target='_blank'>authenticated user can click</a>
       </form>
 
       <style jsx>{`

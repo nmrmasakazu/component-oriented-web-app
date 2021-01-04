@@ -14,9 +14,25 @@ const s3Client = new AWS.S3({
 
 storageRouter.get('/getimgs/:filename', (req, res) => {
     const params = {
-        Bucket: `imgs`,
+        Bucket: `public`,
         Key: `${req.params.filename}`,
-        Expires: 10 // expire in 10 seconds
+        Expires: 300 // expire in 3000 seconds
+    }
+
+    s3Client.getSignedUrlPromise('getObject', params)
+    .then(sharedUrl => {
+        return res.status(200).send({url: sharedUrl})
+    })
+    .catch(err => {
+        res.status(500).send({ error: err })
+    })
+})
+
+storageRouter.get('/getprivate/:filename', (req, res) => {
+    const params = {
+        Bucket: `private`,
+        Key: `${req.params.filename}`,
+        Expires: 300 // expire in 3000 seconds
     }
 
     s3Client.getSignedUrlPromise('getObject', params)

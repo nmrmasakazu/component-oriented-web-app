@@ -1,0 +1,4 @@
+you (authenticated user) can see this private file...
+-------
+HELLO WORLD
+-------
