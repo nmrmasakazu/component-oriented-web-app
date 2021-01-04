@@ -1,0 +1,24 @@
+{
+  "name": "storage-gateway",
+  "version": "1.0.0",
+  "author": "nmrmasakazu",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node src/proxy.ts",
+    "build": "tsc",
+    "start": "node ./dist/proxy.js"
+  },
+  "dependencies": {
+    "@types/node": "^14.14.19",
+    "cookie": "^0.4.1",
+    "cross-fetch": "^3.0.6",
+    "http-proxy": "^1.18.1"
+  },
+  "devDependencies": {
+    "@types/cookie": "^0.4.0",
+    "@types/http-proxy": "^1.17.4",
+    "ts-node": "^8.0.3",
+    "typescript": "^4.1.3"
+  }
+}
