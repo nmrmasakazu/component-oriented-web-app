@@ -20,8 +20,8 @@ const requestHandler = async (req: any, res: any) => {
   const proxy = httpProxy.createProxyServer()
 
   try {
-    // imgs bucket なら認証
-    if (urlobj.pathname && urlobj.pathname!.match(/^\/imgs\//)) {
+    // private bucket なら認証
+    if (urlobj.pathname && urlobj.pathname!.match(/^\/private\//)) {
       const cookies = cookie.parse(req.headers.cookie)
       const options = {
         method: 'GET',
