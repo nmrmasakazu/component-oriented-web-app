@@ -57,3 +57,4 @@ Thanks
   - https://qiita.com/Manabu-man/items/58d0f98a15656ed65136
 - minio
   - https://github.com/jjrom/minio-proxy/blob/master/container_root/etc/nginx/sites-available/default
+  - https://github.com/hedlx/bbs/blob/405b1738c2ae91501f5d13677e713f91207fcfe2/backend-ng/nginx/nginx.conf
