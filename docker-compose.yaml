@@ -48,14 +48,30 @@ services:
     #     networks:
     #         - app-net
 
+    minio:
+        build:
+            context: ./minio/
+        restart: always
+        ports: 
+            - "9090:9000"
+        environment:
+            MINIO_ACCESS_KEY: minio
+            MINIO_SECRET_KEY: minio123
+        # depends_on:
+        #     - app
+        command: server /data
+        container_name: component-minio
+        networks:
+            - app-net
+
     nginx-gateway:
         build:
             context: ./nginx-gateway/
         restart: always
         ports: 
             - "80:80"
-        # depends_on:
-        #     - app
+        depends_on:
+            - minio
         container_name: component-nginx-gateway
         networks:
             - app-net

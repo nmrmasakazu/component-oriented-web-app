@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { login } from '../services/auth/login'
+import { getImgs } from '../services/storage'
 import { LoginInputs } from '../../types/LoginInputs'
 
 const LoginPage = () => {
@@ -9,12 +10,13 @@ const LoginPage = () => {
     password: '',
   }
   const [inputs, setInputs] = useState(initialValues)
+  const [storageUrls, setStorageUrls] = useState({kaikokaiUrl: '', nitechUrl: ''})
   const [error, setError] = useState('')
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     const message = await login(inputs)
-    if ( message ) { setError(message) }
+    if (message) { setError(message) }
   }
 
   const handleInputChange = (e: React.ChangeEvent<any>) => {
@@ -25,24 +27,38 @@ const LoginPage = () => {
     })
   }
 
+  const fetchStorage = async () => {
+    const kaikokaiUrl = await getImgs('Kaikokai-logo.png')
+    const nitechUrl = await getImgs('Nitech-logo.png')
+    setStorageUrls({
+      ...storageUrls,
+      kaikokaiUrl: kaikokaiUrl.data.url,
+      nitechUrl: nitechUrl.data.url
+    })
+  }
+
+  useEffect(() => {
+    fetchStorage()
+  }, [])
+
   return <>
     <div className="contact-clean">
       <form id="form-round" onSubmit={handleSubmit}>
-        <img className="float-right d-md-flex align-items-md-start img-right" src="/static/img/Nitech-logo.png" />
+        <img className="float-right d-md-flex align-items-md-start img-right" src={storageUrls.nitechUrl} />
         <div className="kaikokai">
-          <img className="float-right d-md-flex img-right" src="/static/img/Kaikokai-logo.png" />
+          <img className="float-right d-md-flex img-right" src={storageUrls.kaikokaiUrl} />
         </div>
         <h2 className="text-center">テレリハビリ治療支援システム</h2>
         <h5 className="text-right"></h5>
         {error ? <p className="err">Error: {error}</p> : null}
         <div className="form-group">
-            <input className="form-control" type="text" name="username" placeholder="ユーザーネーム" onChange={handleInputChange} />
+          <input className="form-control" type="text" name="username" placeholder="ユーザーネーム" onChange={handleInputChange} />
         </div>
         <div className="form-group">
           <input className="form-control" type="password" placeholder="パスワード" name="password" onChange={handleInputChange} />
         </div>
         <div className="form-group" id="center">
-            <button className="btn">ログイン</button>
+          <button className="btn">ログイン</button>
         </div>
       </form>
 
