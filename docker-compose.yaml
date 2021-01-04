@@ -1,26 +1,26 @@
 version: "3"
 services:
-    # mysql:
-    #     build:
-    #         context: ./mysql/
-    #     restart: always
-    #     ports: 
-    #         - "3306:3306"
-    #     # expose: 
-    #     #     - "3306"
-    #     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    #     volumes:
-    #         - ./mysql/initdb.d:/docker-entrypoint-initdb.d
-    #         - ./mysql/conf.d:/etc/mysql/conf.d
-    #         - ./log/mysql:/var/log/mysql
-    #     environment:
-    #       MYSQL_DATABASE: api_db
-    #       MYSQL_ROOT_USER: root
-    #       MYSQL_ROOT_PASSWORD: root
-    #       TZ: 'Asia/Tokyo'
-    #     container_name: component-mysql
-    #     networks:
-    #         - app-net
+    mysql:
+        build:
+            context: ./mysql/
+        restart: always
+        ports: 
+            - "3306:3306"
+        # expose: 
+        #     - "3306"
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        volumes:
+            - ./mysql/initdb.d:/docker-entrypoint-initdb.d
+            - ./mysql/conf.d:/etc/mysql/conf.d
+            - ./log/mysql:/var/log/mysql
+        environment:
+          MYSQL_DATABASE: api_db
+          MYSQL_ROOT_USER: root
+          MYSQL_ROOT_PASSWORD: root
+          TZ: 'Asia/Tokyo'
+        container_name: component-mysql
+        networks:
+            - app-net
 
     # api:
     #     build:
