@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { privateAdminRoute } from '../../../components/privateRoute'
+import { privateAdminRoute } from '../../../components/PrivateRoute'
 import { getUserItem, addUserItem, removeUserItem } from '../../../services/item/userItem'
 import { UserItem, Item } from '../../../../types/ItemType'
 import UserItemComponent from '../../../components/userItem'

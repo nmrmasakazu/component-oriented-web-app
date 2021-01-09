@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
 import { ResponseResult } from '../../../types/ResponseResult'
-import { host, bffPort } from '../../../const'
+import { host, port } from '../../../const'
 import { Item } from '../../../types/ItemType'
 // import Cookies from 'js-cookie'
 // import { COOKIES } from "../auth/login"
@@ -11,7 +11,7 @@ import { Item } from '../../../types/ItemType'
 export async function getUserItem(type: 'tr' | 'ch', username: String): Promise<ResponseResult> {
 
     try {
-        const response = await axios.get(`http://${host}:${bffPort}/bff/useritem/${type}/${username}`)
+        const response = await axios.get(`http://${host}:${port}/bff/useritem/${type}/${username}`)
         const responseResult: ResponseResult = {
             success: true,
             data: response.data
@@ -29,7 +29,7 @@ export async function getUserItem(type: 'tr' | 'ch', username: String): Promise<
 
 export async function addUserItem(type: 'tr' | 'ch', item: Item): Promise<ResponseResult> {
     try {
-        const response = await axios.post(`http://${host}:${bffPort}/bff/adduseritem/${type}`, item)
+        const response = await axios.post(`http://${host}:${port}/bff/adduseritem/${type}`, item)
         const responseResult: ResponseResult = {
             success: true,
             data: response.data
@@ -47,7 +47,7 @@ export async function addUserItem(type: 'tr' | 'ch', item: Item): Promise<Respon
 
 export async function removeUserItem(type: 'tr' | 'ch', item: Item): Promise<ResponseResult> {
     try {
-        const response = await axios.post(`http://${host}:${bffPort}/bff/removeuseritem/${type}`, item)
+        const response = await axios.post(`http://${host}:${port}/bff/removeuseritem/${type}`, item)
         const responseResult: ResponseResult = {
             success: true,
             data: response.data
@@ -66,7 +66,7 @@ export async function removeUserItem(type: 'tr' | 'ch', item: Item): Promise<Res
 export async function getUserItemAll(username: String): Promise<ResponseResult> {
 
     try {
-        const response = await axios.get(`http://${host}:${bffPort}/bff/useritem/${username}`)
+        const response = await axios.get(`http://${host}:${port}/bff/useritem/${username}`)
         const responseResult: ResponseResult = {
             success: true,
             data: response.data

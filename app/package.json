@@ -9,7 +9,7 @@
         "build:client": "next build src/client",
         "build:server": "tsc --project ./src/server/tsconfig.server.json",
         "build": "concurrently \"yarn build:server\" \"yarn build:client\"",
-        "start": "NODE_ENV=production node src/server/dist/app.js"
+        "start": "NODE_ENV=production node src/server/dist/server/app.js"
     },
     "dependencies": {
         "aws-sdk": "^2.820.0",

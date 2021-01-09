@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Nav from '../../../components/nav'
-import { privateAdminRoute } from '../../../components/privateRoute'
+import { privateAdminRoute } from '../../../components/PrivateRoute'
 import { getPromises } from '../../../services/promisetable'
 
 const PromiseTablePage = () => {

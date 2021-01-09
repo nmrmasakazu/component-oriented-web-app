@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Nav from '../../../components/nav'
-import { privateRoute } from '../../../components/privateRoute'
+import { privateRoute } from '../../../components/PrivateRoute'
 import { initialPromiseTable } from '../../../../types/PromiseTable'
 import { getPromiseDetail, updatePromiseDetailClient } from '../../../services/promisetable'
 import { useRouter } from 'next/router'

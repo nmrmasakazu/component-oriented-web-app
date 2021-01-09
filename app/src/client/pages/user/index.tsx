@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Nav from '../../components/nav'
-import { privateRoute } from '../../components/privateRoute'
+import { privateRoute } from '../../components/PrivateRoute'
 import { getPromisesClient } from '../../services/promisetable'
 import { whoami } from '../../services/auth/clients'
 

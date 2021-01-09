@@ -3,7 +3,7 @@ import Router from 'next/router'
 import { LoginInputs } from '../../../types/LoginInputs'
 import { AuthToken } from "../../services/auth/authToken"
 import axios, { AxiosError } from 'axios'
-import { host, bffPort } from '../../../const'
+import { host, port } from '../../../const'
 
 export const COOKIES = {
     authToken: 'authToken'
@@ -11,7 +11,7 @@ export const COOKIES = {
 
 export async function login(inputs: LoginInputs): Promise<string | void> {
     try {
-        const response = await axios.post(`http://${host}:${bffPort}/bff/login?username=${inputs.username}&password=${inputs.password}`)
+        const response = await axios.post(`http://${host}:${port}/bff/login?username=${inputs.username}&password=${inputs.password}`)
 
         Cookie.set(COOKIES.authToken, response.data.token)
         const auth = new AuthToken(response.data.token)

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Nav from '../../components/nav'
-import { privateAdminRoute } from '../../components/privateRoute'
+import { privateAdminRoute } from '../../components/PrivateRoute'
 import { getClients } from '../../services/auth/clients'
 import { User } from '../../../types/User'
 

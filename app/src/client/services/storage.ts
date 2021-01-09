@@ -1,10 +1,10 @@
 import axios, { AxiosError } from 'axios'
 import { ResponseResult } from '../../types/ResponseResult'
-import { host, bffPort } from '../../const'
+import { host, port } from '../../const'
 
 export async function getImgs(filename: string): Promise<ResponseResult> {
     try {
-        const response = await axios.get(`http://${host}:${bffPort}/bff/getimgs/${filename}`)
+        const response = await axios.get(`http://${host}:${port}/bff/getimgs/${filename}`)
         const responseResult: ResponseResult = {
             success: true,
             data: response.data
@@ -22,7 +22,7 @@ export async function getImgs(filename: string): Promise<ResponseResult> {
 
 export async function getPrivate(filename: string): Promise<ResponseResult> {
     try {
-        const response = await axios.get(`http://${host}:${bffPort}/bff/getprivate/${filename}`)
+        const response = await axios.get(`http://${host}:${port}/bff/getprivate/${filename}`)
         const responseResult: ResponseResult = {
             success: true,
             data: response.data
