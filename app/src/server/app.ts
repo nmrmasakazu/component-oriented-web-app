@@ -18,7 +18,7 @@ async function main() {
     await nextApp.prepare()
 
     app.use(cookieParser())
-    app.use(bodyParser.urlencoded({extended: true}))
+    app.use(bodyParser.json())
 
     app.use('/bff', authRouter)
     app.use('/bff', itemRouter)
