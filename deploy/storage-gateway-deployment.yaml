@@ -19,6 +19,8 @@ spec:
         env:
         - name: HOST
           value: nginx-gateway
+        - name: PORT
+          value: "80"
         ports:
         - containerPort: 8090
       restartPolicy: Always

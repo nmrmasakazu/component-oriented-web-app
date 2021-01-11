@@ -26,13 +26,19 @@ Under construction...
 ## Setup
 
 ```bash
-# 起動
+### With Docker Compose
+# up
 docker-compose up --build
-# 停止
+# Down
 docker-compose down --volumes
 
-# コンテナ内で確認
-docker exec -it <CONTAINER_NAME> bash
+### With K8S
+# Up
+docker-compose build
+kubectl apply -f deploy
+kubectl get-all
+# Down
+kubectl delete -f deploy
 ```
 
 ## Access

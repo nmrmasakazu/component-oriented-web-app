@@ -30,7 +30,7 @@ const requestHandler = async (req: any, res: any) => {
           'Content-Type': 'application/json'
         }
       }
-      const response = await fetch(`http://${process.env.HOST}:8080/api/users/me`, options)
+      const response = await fetch(`http://${process.env.HOST}:${process.env.PORT}/api/users/me`, options)
       // console.log(await response.json())
       if (response.status !== 200) {
         blocked(res)
