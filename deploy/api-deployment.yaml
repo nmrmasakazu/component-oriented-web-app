@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: component-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: component-api
+  template:
+    metadata:
+      labels:
+        app: component-api
+    spec:
+      containers:
+      - name: api
+        image: component-oriented-web-app_api
+        imagePullPolicy: "Never"
+        env:
+        - name: HOST
+          value: mysql
+        - name: MYSQL_DATABASE
+          value: api_db
+        - name: MYSQL_PASSWORD
+          value: pass
+        - name: MYSQL_USER
+          value: user
+        ports:
+        - containerPort: 8080
+        tty: true
+      restartPolicy: Always

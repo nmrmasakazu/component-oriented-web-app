@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: component-storage-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: component-storage-gateway
+  template:
+    metadata:
+      labels:
+        app: component-storage-gateway
+    spec:
+      containers:
+      - name: storage-gateway
+        image: component-oriented-web-app_storage-gateway
+        imagePullPolicy: "Never"
+        env:
+        - name: HOST
+          value: nginx-gateway
+        - name: PORT
+          value: "80"
+        ports:
+        - containerPort: 8090
+      restartPolicy: Always

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: component-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: component-mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: component-mysql
+    spec:
+      containers:
+      - name: mysql
+        image: component-oriented-web-app_mysql
+        imagePullPolicy: "Never"
+        args:
+          - mysqld
+          - --character-set-server=utf8mb4
+          - --collation-server=utf8mb4_unicode_ci
+        env:
+        - name: MYSQL_DATABASE
+          value: api_db
+        - name: MYSQL_PASSWORD
+          value: pass
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        - name: MYSQL_ROOT_USER
+          value: root
+        - name: MYSQL_USER
+          value: user
+        - name: TZ
+          value: Asia/Tokyo
+        ports:
+        - containerPort: 3306
+      restartPolicy: Always

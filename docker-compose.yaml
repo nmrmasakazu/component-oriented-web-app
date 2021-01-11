@@ -9,10 +9,6 @@ services:
         expose: 
             - "3306"
         command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-        volumes:
-            - ./mysql/initdb.d:/docker-entrypoint-initdb.d
-            - ./mysql/conf.d:/etc/mysql/conf.d
-            - ./log/mysql:/var/log/mysql
         environment:
           MYSQL_DATABASE: api_db
           MYSQL_ROOT_USER: root
@@ -65,6 +61,7 @@ services:
         environment:
             # HOST: host.docker.internal
             HOST: nginx-gateway
+            PORT: 80
         depends_on:
             - app
         container_name: component-storage-gateway
