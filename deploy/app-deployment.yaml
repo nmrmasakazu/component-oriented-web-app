@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: component-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: component-app
+  template:
+    metadata:
+      labels:
+        app: component-app
+    spec:
+      containers:
+      - name: app
+        image: component-oriented-web-app_app
+        imagePullPolicy: "Never"
+        env:
+        - name: HOST
+          value: nginx-gateway
+        - name: PORT
+          value: "80"
+        ports:
+        - containerPort: 3000
+        tty: true
+      restartPolicy: Always

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: component-nginx-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: component-nginx-gateway
+  template:
+    metadata:
+      labels:
+        app: component-nginx-gateway
+    spec:
+      containers:
+      - name: component-nginx-gateway
+        image: component-oriented-web-app_nginx-gateway
+        imagePullPolicy: "Never"
+        ports:
+        - containerPort: 80
+      restartPolicy: Always
