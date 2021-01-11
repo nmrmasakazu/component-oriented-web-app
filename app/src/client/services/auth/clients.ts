@@ -1,13 +1,13 @@
 import axios, { AxiosError } from 'axios'
 import { ResponseResult } from '../../../types/ResponseResult'
-import { host, bffPort } from '../../../const'
+import { host, port } from '../../../const'
 import Cookies from 'js-cookie'
 import { COOKIES } from "../auth/login"
 import { AuthToken } from "../auth/authToken"
 
 export async function getClients(): Promise<ResponseResult> {
     try {
-        const response = await axios.get(`http://${host}:${bffPort}/bff/clients`)
+        const response = await axios.get(`http://${host}:${port}/bff/clients`)
         const responseResult: ResponseResult = {
             success: true,
             data: response.data

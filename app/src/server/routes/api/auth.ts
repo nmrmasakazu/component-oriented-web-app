@@ -1,6 +1,6 @@
 import Express from 'express'
 import fetch from 'cross-fetch'
-import { host, port, apiNotFound } from '../../../const'
+import { host, port } from '../../../const'
 
 const authRouter = Express.Router()
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { privateAdminRoute } from '../../components/privateRoute'
+import { privateAdminRoute } from '../../components/PrivateRoute'
 import { getItem, addItem, removeItem } from '../../services/item/item'
 import { ItemControl } from '../../../types/ItemControl'
 import Item from '../../components/Item'

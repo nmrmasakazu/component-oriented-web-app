@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { getItem, addItem, removeItem } from '../../services/item/item'
 import { ItemControl } from '../../../types/ItemControl'
 import Item from '../../components/Item'
-import { privateAdminRoute } from '../../components/privateRoute'
+import { privateAdminRoute } from '../../components/PrivateRoute'
 
 const ItemTr = () => {
 

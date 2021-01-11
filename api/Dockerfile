@@ -2,4 +2,6 @@ FROM openjdk:latest
 
 WORKDIR /api
 
-ENTRYPOINT ["sh", "-c", "./mvnw spring-boot:run"]
+COPY ./ ./
+
+CMD ["sh", "-c", "./mvnw spring-boot:run"]

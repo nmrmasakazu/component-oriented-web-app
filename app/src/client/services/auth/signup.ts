@@ -1,7 +1,7 @@
 import { User } from '../../../types/User'
 import { ResponseResult } from '../../../types/ResponseResult'
 import axios, { AxiosError } from 'axios'
-import { host, bffPort } from '../../../const'
+import { host, port } from '../../../const'
 
 export const COOKIES = {
     authToken: 'app.authToken'
@@ -10,7 +10,7 @@ export const COOKIES = {
 export async function signup(body: User): Promise<ResponseResult> {
 
     try {
-        await axios.post(`http://${host}:${bffPort}/bff/signup`, body)
+        await axios.post(`http://${host}:${port}/bff/signup`, body)
         const responseResult: ResponseResult = {
             success: true,
             message: ''

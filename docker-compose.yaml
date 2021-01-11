@@ -4,10 +4,10 @@ services:
         build:
             context: ./mysql/
         restart: always
-        ports: 
-            - "3306:3306"
-        # expose: 
-        #     - "3306"
+        # ports: 
+        #     - "3306:3306"
+        expose: 
+            - "3306"
         command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
         volumes:
             - ./mysql/initdb.d:/docker-entrypoint-initdb.d
@@ -17,36 +17,44 @@ services:
           MYSQL_DATABASE: api_db
           MYSQL_ROOT_USER: root
           MYSQL_ROOT_PASSWORD: root
+          MYSQL_USER: user
+          MYSQL_PASSWORD: pass
           TZ: 'Asia/Tokyo'
         container_name: component-mysql
         networks:
             - app-net
 
-    # api:
-    #     build:
-    #         context: ./api/
-    #     expose: 
-    #         - "8080"
-    #     volumes: 
-    #         - ./api:/api
-    #     depends_on:
-    #         - mysql
-    #     container_name: component-api
-    #     tty: true
-    #     networks:
-    #         - app-net
+    api:
+        build:
+            context: ./api/
+        expose: 
+            - "8080"
+        environment:
+          HOST: mysql
+          MYSQL_DATABASE: api_db
+          MYSQL_USER: user
+          MYSQL_PASSWORD: pass
+        depends_on:
+            - mysql
+        container_name: component-api
+        tty: true
+        networks:
+            - app-net
 
-    # app:
-    #     build:
-    #         context: ./app/
-    #     expose: 
-    #         - "3000"
-    #     depends_on:
-    #         - nginx-api
-    #     container_name: component-app
-    #     tty: true
-    #     networks:
-    #         - app-net
+    app:
+        build:
+            context: ./app/
+        expose: 
+            - "3000"
+        environment:
+          HOST: nginx-gateway
+          PORT: 80
+        depends_on:
+            - api
+        container_name: component-app
+        tty: true
+        networks:
+            - app-net
 
     storage-gateway:
         build:
@@ -55,9 +63,10 @@ services:
         expose: 
             - "8090"
         environment:
-            HOST: host.docker.internal
-        # depends_on:
-        #     - app
+            # HOST: host.docker.internal
+            HOST: nginx-gateway
+        depends_on:
+            - app
         container_name: component-storage-gateway
         networks:
             - app-net
